@@ -1,0 +1,55 @@
+div.pagination {
+    @import "pagination.css";
+	padding: 3px;
+	margin: 3px;
+}
+
+div.pagination a {
+	//padding: 2px 5px 2px 5px;
+	//margin: 2px;
+	//border: 1px solid #AAAADD;
+	
+	text-decoration: none; /* no underline */
+	//color: #000099;
+        
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        color: #333;   
+        margin: 5px;
+        padding: 5px 10px;
+    
+}
+div.pagination a:hover, div.pagination a:active {
+	//border: 1px solid #000099;
+
+	//color: #000;
+            background-color: #e6e6e6;
+          border: 1px solid #adadad;
+          color: #333;
+}
+div.pagination span.current {
+	//padding: 2px 5px 2px 5px;
+	//margin: 2px;
+		//border: 1px solid #000099;
+		
+		font-weight: bold;
+		//background-color: #000099;
+		//color: #FFF;
+                background-color: #555;
+                border-color:1px solid #555;
+                color: #fff;
+                margin: 5px;
+                padding: 5px 10px;
+                border-radius: 3px;
+	}
+	div.pagination span.disabled {
+		//padding: 2px 5px 2px 5px;
+		//margin: 2px;
+		border: 1px solid #EEE;
+	
+		color: #DDD;
+                margin: 5px;
+                padding: 5px 10px;
+                border-radius: 3px;
+	}
+	

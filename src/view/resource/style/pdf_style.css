@@ -1,0 +1,240 @@
+body{
+    font-family: Arial !important;
+}
+.invoice-box{
+        max-width:800px;
+        margin:auto;
+        padding:10px;
+        border:1px solid #eee;
+        /*box-shadow:0 0 10px rgba(0, 0, 0, .15);*/
+        font-size:12px;
+        line-height:24px;
+      /*  font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; */
+        font-family: Arial !important;
+        color:#111;
+    }
+    
+    .invoice-box table{
+        width:100%;
+        line-height:inherit;
+        text-align:left;
+        margin-top: -50px !important;
+    }
+    
+    .invoice-box table td{
+        padding:5px;
+        vertical-align:top;
+    }
+    
+    .invoice-box table tr td:nth-child(2){
+        text-align:left;
+    }
+    .invoice-box table tr td:nth-child(3){
+        text-align:left;
+    }
+    
+    .invoice-box table tr.top table td{
+        padding-bottom:20px;
+    }
+    
+    .invoice-box table tr.top table td.title{
+        font-size:45px;
+        line-height:45px;
+        color:#333;
+    }
+    
+    .invoice-box table tr.information table td{
+        padding-bottom:40px;
+    }
+    .information table tr td{
+         text-align:right !important;
+    }
+    .invoice-box table tr.heading td{
+        background:#b3ffec;
+        border-bottom:1px solid #ddd;
+        font-weight:bold;
+    }
+    
+    .invoice-box table tr.details td{
+        padding-bottom:20px;
+    }
+    
+    .invoice-box table tr.item td{
+        border-bottom:1px solid #eee;
+    }
+    
+    .invoice-box table tr.item.last td{
+        border-bottom:none;
+    }
+    
+    .invoice-box table tr.total td:nth-child(2){
+        border-top:2px solid #eee;
+        font-weight:bold;
+    }
+    
+    
+    /*   ---------------   */
+    
+    tr.border_bottom td {
+        border-bottom:0.1mm solid black;
+    }
+    .style{
+        background-color:#737070;
+        color:#fff;
+        text-align:left;
+    }
+    .tableClass{
+        border:0.1mm solid black;
+        border-collapse: collapse;
+    }
+    .theadClass{
+        border-bottom:0.1mm solid black;
+    }
+    .movetop{
+        margin-top:-6px;
+    }
+    
+    .invoice-title h2, .invoice-title h3 {
+        display: inline-block;
+    }
+    
+    .table > tbody > tr > .no-line {
+        border-top: none;
+    }
+    
+    .table > thead > tr > .no-line {
+        border-bottom: none;
+    }
+    
+    .table > tbody > tr > .thick-line {
+        border-top: 2px solid;
+    }
+    .table > tbody > tr > .head-line {
+        border: none !important;
+        margin-bottom:10px !important;
+    }
+    .head-table {
+        border: none !important;
+        margin-bottom: 0px !important;
+        font-weight:bold;
+    }
+    .head-table-2 {
+        border: none !important;
+        margin-bottom: 0px !important;
+        
+    }
+    .box_style_2{
+        border:1px solid #000 !important;
+        padding:10px !important;
+        margin-bottom: 2px !important;
+        line-height: 15px !important;
+    }
+    .style-head{
+        background-color: #606060; padding:3px;color:#fff !important;margin-top:7px !important;
+        text-align:left;font-weight:bold;font-size:13px !important;margin-bottom:3px !important;
+    }
+    .terms-condition {
+        font-size:11px !important;
+        text-transform: uppercase !important;
+        line-height: 15px !important;
+    }
+    ul {list-style-type: disc !important;margin:0px !important;
+        padding:0px !important; text-align:justify}
+    ul li
+    {
+        margin:0px !important;
+        padding:0px !important;
+        font-size:12px;
+        display: inline;
+        
+    }
+    .spanDesc
+    {
+        font-family: "Montserrat",Arial,sans-serif !important;
+        font-size: 9px !important;
+        line-height: 15px !important;
+    }
+    .tableBorder{
+        border:0.5mm solid #404040 !important;
+        border-collapse: collapse;
+        padding:10px !important;
+        border-collapse: collapse;
+        color:#ff0000 !important;
+    }
+    .text-adjustment{
+        text-transform: uppercase !important;
+        display:inline;
+        text-align:justify;
+        font-size:13px !important;
+    }
+    .boldText{
+        font-weight:bold !important;
+        font-size: 12px !important;
+    }
+    .lowerText{
+        text-transform: lowercase !important;
+        text-decoration: underline;
+    }
+    .imageMargin{
+        margin-top:-7px;
+    }
+    .prodText{
+        font-size:16px;
+        font-weight:bold;
+    }
+    
+    
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td{
+            width:100%;
+            display:block;
+            text-align:center;
+        }
+        
+        .invoice-box table tr.information table td{
+            width:100%;
+            display:block;
+            text-align:center;
+        }
+    }
+    
+    @media print {
+        
+        .terms-condition {
+            text-transform: uppercase !important;
+            font-size:11px !important;
+            line-height:15px !important;
+        }
+        .style-head{
+            background-color: #606060 !important; padding:3px;color:#fff !important;margin-top:7px;
+            text-align:left;font-weight:bold;font-size:13px !important;margin-bottom:10px !important;
+        }
+        ul li
+        {
+            line-height: 10px !important;
+        }
+        .spanDesc
+        {
+            font-family: "Montserrat",Arial,sans-serif !important;
+            font-size: 10px !important;
+            line-height: 15px !important;
+            color:#000 !important;
+            margin-top:15px !important;
+            text-align:justify;
+            
+        }
+        .box_style_2{
+            border:2px solid #b7b7b7 !important;
+            padding:10px !important;
+            margin-bottom: 2px !important;
+            line-height: 15px !important;
+            text-align:center !important;
+        }
+        .text-right{
+            text-align: right !important;
+        }
+        .code{
+            text-align: center !important;
+            font-size:9px !important;
+        }
+    }

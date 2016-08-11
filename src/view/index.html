@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>My App</title>
+	<link href="resource/style/base.css" rel="stylesheet">
+	<link href="resource/style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<script>
+
+		if(process.env.ENV === 'development'){
+			var electron = require('electron');
+			//console.log(electron.remote.BrowserWindow);
+			electron.remote.BrowserWindow.addDevToolsExtension('/home/robin/.config/google-chrome/Default/Extensions/ighdmehidhipcmcojjgiloacoafjmpfk/0.10.7_0');
+
+		}
+		//require('remote').require('browser-window').addDevToolsExtension('~/.config/google-chrome/Default/Extensions/ighdmehidhipcmcojjgiloacoafjmpfk/0.10.7_0');
+		//require('remote').require('browser-window').addDevToolsExtension('chrome.*');
+
+/*
+var lf = require('lovefield');
+console.log(lf);
+var schemaBuilder = lf.schema.create('todo', 1);
+
+schemaBuilder.createTable('Item').
+addColumn('id', lf.Type.INTEGER).
+addColumn('description', lf.Type.STRING).
+addColumn('deadline', lf.Type.DATE_TIME).
+addColumn('done', lf.Type.BOOLEAN).
+addPrimaryKey(['id']).
+addIndex('idxDeadline', ['deadline'], false, lf.Order.DESC);
+
+var todoDb;
+var item;
+schemaBuilder.connect().then(function(db) {
+	todoDb = db;
+	item = db.getSchema().table('Item');
+	var row = item.createRow({
+		'id': 1,
+		'description': 'Get a cup of coffee',
+		'deadline': new Date(),
+		'done': false
+	});
+
+	return db.insertOrReplace().into(item).values([row]).exec();
+}).then(function() {
+	return todoDb.select().from(item).where(item.done.eq(false)).exec();
+}).then(function(results) {
+	results.forEach(function(row) {
+		console.log(row['description'], 'before', row['deadline']);
+	});
+});
+
+
+
+*/
+
+
+
+
+	</script>
+
+</head>
+<body>
+	<div ng-include="'include/header.html'" style="margin-bottom:20px;"></div>
+	<div ng-view ></div>
+	<script>
+	(function() {
+				const script = document.createElement('script');
+				//script.src = process.env.ENV === 'development' ? 'http://localhost:9000/dist/bundle.js' : './dist/bundle.js';
+				script.src = '../../build/bundle.js';
+				document.write(script.outerHTML);
+			}());
+		</script>
+
+</body>
+</html>

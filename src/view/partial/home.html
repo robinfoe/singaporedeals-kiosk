@@ -1,0 +1,22 @@
+
+
+<div class="container">
+
+  <div class="col-md-12 padding-top-70px" >
+    <div class="row margin_top">
+
+      <div class="col-md-3 col-sm-3 wow" data-wow-delay="0.1s" ng-repeat="item in items">
+        <product-deck item="item"></product-deck>
+      </div>
+    </div>
+    <hr style="margin-top : 0px ; margin-bottom : 0px;">
+    <div class="col-sm-12 col-md-12 pagination-custom">
+      <a class="btn_nav pull-left" ng-click="vm.prevPage()" >Prev</a>
+      <a class="btn_nav pull-right" ng-click="vm.nextPage()" >Next</a>
+    </div>
+  </div>
+
+
+
+
+</div>

@@ -1,0 +1,35 @@
+
+<div class="tour_container" style="border: 1px solid #ccc;">
+  <div class="img_container" style="border-bottom:none !important;">
+    <a style="cursor:pointer" >
+        <img src="resource/images/products/{{item.image}}" class="img-responsive product-img" alt=""  width="" height="">
+        <img src="resource/images/products/{{item.image}}" class="img-responsive product-img blur" alt="" width="" height="" style="display: none;"  width="" height="">
+        <div ng-class="showFeature(item)" ></div>
+
+
+    </a>
+
+  </div>
+
+  <div style="border-bottom:1px solid #d9d9d9;background-color: #333;margin: 0px 1px 0px 1px;">
+      <div style="padding:10px;font-size:20px;text-align:right;">
+          <span class="" style='color:#fff;font-size:11px;float:left;text-align:left;font-weight:bold'>{{ item | showEticket }}</span>
+          <span ng-if="item.promo_adult_price > 0" style="font-weight:bold;color:#fff;">S$ {{ item.promo_adult_price | toAbsoluteValue }}</span>
+          <span ng-if="item.promo_adult_price > 0" style="font-weight:bold;color:#fff; text-decoration: line-through;">S$ {{ item.adult_price | toAbsoluteValue }}</span>
+          <span ng-if="item.promo_adult_price == 0" style="font-weight:bold;color:#fff;"> S$ {{ item.adult_price | toAbsoluteValue }}</span>
+      </div>
+  </div>
+
+  <div class="tour_title" style="padding-top:7px;">
+      <h3><strong>{{item.title | toSaveHtml }}</strong></h3>
+      <div class="rating" style="margin-bottom:5px;text-align:right" >
+        <span ng-bind-html='item | showVotedIcon'></span>
+      </div>
+      <div style="text-align:center">
+          <a class="btn_1 green"  data-toggle="modal" data-target="" style="min-width:90px !important; padding:7px 10px;">Read more</a>
+          <a class="btn_1"  style="padding:7px 10px;">Book now</a>
+      </div>
+
+  </div>
+
+</div>
