@@ -11,7 +11,15 @@
 		if(process.env.ENV === 'development'){
 			var electron = require('electron');
 			//console.log(electron.remote.BrowserWindow);
-			electron.remote.BrowserWindow.addDevToolsExtension('/home/robin/.config/google-chrome/Default/Extensions/ighdmehidhipcmcojjgiloacoafjmpfk/0.10.7_0');
+			
+			// Ubuntu
+			//electron.remote.BrowserWindow.addDevToolsExtension('/home/robin/.config/google-chrome/Default/Extensions/ighdmehidhipcmcojjgiloacoafjmpfk/0.10.7_0');
+
+			// OSX 
+			electron.remote.BrowserWindow.addDevToolsExtension('/Users/rfoe/Library/Application Support/Google/Chrome/Default/Extensions/ighdmehidhipcmcojjgiloacoafjmpfk/0.10.7_0');
+			
+
+
 
 		}
 		//require('remote').require('browser-window').addDevToolsExtension('~/.config/google-chrome/Default/Extensions/ighdmehidhipcmcojjgiloacoafjmpfk/0.10.7_0');

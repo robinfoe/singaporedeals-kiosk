@@ -38,7 +38,7 @@ var mainApp = {
 			.controller('ContactController', ContactController)
 			.filter('showVotedIcon',[ '$sce' , ( $sce) => { return (item) => {
 				try{
-					console.log(item);
+					//console.log(item);
 					var score = 0;
 					if(item.review){
 						var totalScore = item.review['REVIEW_COUNT'] * 10;
@@ -46,14 +46,14 @@ var mainApp = {
 						score = (score * 10) / 2;
 					}
 
-					console.log(score);
+					//console.log(score);
 					var icons = [];
 					for(var i = 0 ; i < 5 ; i++){
 						var styles = (score >= ( parseInt(i) + 0.5)) ? ' voted' : '' ;
 						icons.push('<i class="icon-smile '+styles+'" ></i>');
-						console.log('looping');
+					//	console.log('looping');
 					}
-					console.log(icons);
+					//console.log(icons);
 					return $sce.trustAsHtml(icons.join(' '));
 					//  <i class="icon-smile voted"></i><i class="icon-smile" ></i>
 
@@ -79,6 +79,7 @@ var mainApp = {
 						return $sce.trustAsHtml(decoded);
 			}}])
 			.directive('productDeck' , () => new ProductDeckDirective)
+			.directive('swipeAndSnap', () => new SwipeSnapDirective)
 			.factory("dbSchema" , function(){return mainApp.STATIC.SCHEMA;})
 			.service('productService' , ProductService)
 			.service('productReviewService' , ProductReviewService);

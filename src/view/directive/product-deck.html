@@ -11,16 +11,16 @@
 
   </div>
 
-  <div style="border-bottom:1px solid #d9d9d9;background-color: #333;margin: 0px 1px 0px 1px;">
+  <div class="catalog-price-bar" >
       <div style="padding:10px;font-size:20px;text-align:right;">
-          <span class="" style='color:#fff;font-size:11px;float:left;text-align:left;font-weight:bold'>{{ item | showEticket }}</span>
-          <span ng-if="item.promo_adult_price > 0" style="font-weight:bold;color:#fff;">S$ {{ item.promo_adult_price | toAbsoluteValue }}</span>
-          <span ng-if="item.promo_adult_price > 0" style="font-weight:bold;color:#fff; text-decoration: line-through;">S$ {{ item.adult_price | toAbsoluteValue }}</span>
-          <span ng-if="item.promo_adult_price == 0" style="font-weight:bold;color:#fff;"> S$ {{ item.adult_price | toAbsoluteValue }}</span>
+          <span class="text-size-11-bold-white" style='float:left;text-align:left;'>{{ item | showEticket }}</span>
+          <span ng-if="item.promo_adult_price > 0" class="text-size-18-bold-white">S$ {{ item.promo_adult_price | toAbsoluteValue }}</span>
+          <span ng-if="item.promo_adult_price > 0" class="text-size-18-bold-white" style="text-decoration: line-through;">S$ {{ item.adult_price | toAbsoluteValue }}</span>
+          <span ng-if="item.promo_adult_price == 0" class="text-size-18-bold-white"> S$ {{ item.adult_price | toAbsoluteValue }}</span>
       </div>
   </div>
 
-  <div class="tour_title" style="padding-top:7px;">
+  <div class="tour_title" >
       <h3><strong>{{item.title | toSaveHtml }}</strong></h3>
       <div class="rating" style="margin-bottom:5px;text-align:right" >
         <span ng-bind-html='item | showVotedIcon'></span>

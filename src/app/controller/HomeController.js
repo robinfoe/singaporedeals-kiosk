@@ -24,8 +24,8 @@ class HomeController{
   }
 
   paginate(){
-    //console.log(_.unescape('Curly, Larry &amp; Moe'));
-    //console.log(_.unescape('Curly, Larry &amp; Moe &trade; &#8482; &#x02122; &#8482; &#x2122; ™'));
+    
+
     this.productService.paginateCount(this.$scope.pagination).then( (result) => {
       this.$scope.pagination.totalRecord = result;
       this.$scope.pagination.totalPage = Math.round(result / this.$scope.pagination.rowPerPage);
@@ -33,10 +33,42 @@ class HomeController{
       this.productService.paginate(this.$scope.pagination).then( (records) => {
         var items = records.items;
         items.forEach( (item) => {
-          item.review = _.find(records.itemsReview , (val) => {return item.id === val.PRODUCT_ID;})
+          item.review = _.find(records.itemsReview , (val) => {return item.id === val.PRODUCT_ID;});
         });
-        console.log(items);
-        this.$scope.items = items;
+        //console.log(items);
+      // this.$scope.items  = [];
+        //var blocks = [];
+        //var count = 0 ;
+
+        var lists = _.chain(items).groupBy( (element,index) => {return Math.floor(index/4);} ).toArray().value();
+        var blocks = _.chain(lists).groupBy( (element,index) =>{ return Math.floor(index/2);}  ).toArray().value();
+        this.$scope.items = blocks;
+        this.$scope.displayWidth =  (this.$scope.items.length * 1130) + "px" ;
+
+
+       /*
+         var lists = _.chain(items).groupBy(
+                    function(element, index){ 
+                      return Math.floor(index/8);
+          }).toArray()
+        .value();
+          console.log('chaininig... ')
+        console.log(lists);
+        console.log(blocks);
+
+       */
+        
+       // lists.forEach()
+
+
+        
+
+        
+        
+
+
+
+        //this.$scope.items = items;
         this.$scope.$apply();
       });
 

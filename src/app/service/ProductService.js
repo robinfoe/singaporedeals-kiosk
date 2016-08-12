@@ -13,6 +13,7 @@ export default class ProductService {
 		  //  this.$http = $http;
     }
 
+
     paginateCount(filter){
       return new Promise( (resolve,reject) => {
         this.dbSchema.getConn().then(conn => {
@@ -58,8 +59,9 @@ export default class ProductService {
                 query.where(lf.op.and.apply(this,parameters));
               }
 
-              query.skip(skip)
-                .limit(limit)
+              query
+                //.skip(skip)
+                //.limit(limit)
                 .orderBy(prodTable.sort_order , lf.Order.ASC)
                 .exec()
                 .then( (result) => {

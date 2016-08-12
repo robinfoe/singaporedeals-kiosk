@@ -2,53 +2,35 @@ import hammerjs from 'hammerjs'
 
 export default class SwipeSnapDirective {
     constructor() {
-        this.restrict = 'E';
+        this.restrict = 'AE';
     }
 
     link(scope, element, attrs){
 
-      var snapLocations = JSON.parse(attr.snapLocations),
+      var snapLocations = JSON.parse(attrs.snapLocations),
       restPosition = 0, // Define the location to end.
       positionX = 0; // The current position.
 
 
 
-      /**
-      * Perform any setup for the drag actions.
-      */
-      hammerjs(element[0]).on("dragstart", function(ev) {
+      hammerjs(element[0]).on('panstart', (ev) => {element.removeClass('animate');} );
 
-        // We dont want an animation delay when dragging.
-        element.removeClass('animate');
-      });
-
-      /**
-      * Follow the drag position when the user is interacting.
-      */
-      hammerjs(element[0]).on("drag", function(ev) {
-
-        // Set the current position.
-        positionX = restPosition + parseInt(ev.gesture.deltaX);
-
+      hammerjs(element[0]).on('panmove', (ev) => {
+        positionX = restPosition + parseInt(ev.deltaX);
         element.css('-webkit-transform', 'translate3d(' + positionX + 'px,0px,0px)');
         element.css('transform', 'translate3d(' + positionX + 'px,0px,0px)');
+
       });
 
-      /**
-      * The drag is finishing so we'll animate to a snap point.
-      */
-      hammerjs(element[0]).on("dragend", function(ev) {
+      hammerjs(element[0]).on('panend', (ev) => {
         element.addClass('animate');
-
-        // Work out where we should "snap" to.
-        restPosition = this.calculate_snap_location(positionX);
-
+        restPosition = this.calculateSnapPosition(positionX, snapLocations);
         element.css('-webkit-transform', 'translate3d(' + restPosition + 'px, 0px, 0px)');
-      });
+      } );
 
     }
 
-    calculateSnapPosition(position){
+    calculateSnapPosition(positionX, snapLocations){
       // Used to store each difference between current position and each snap point.
       var currentDiff;
       // Used to store the current best difference.

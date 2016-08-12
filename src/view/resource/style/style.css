@@ -2374,6 +2374,8 @@ ul.list_order li span {
 .margin_30 {margin-top:30px; margin-bottom:30px;}
 .padding-top-70px {padding-top:70px;}
 
+.padding-top-60px {padding-top:60px;}
+
 /* Parallax bg */
 .parallax-window {
     min-height: 470px;
@@ -2447,18 +2449,18 @@ ul.list_order li span {
 	/*pointer-events: auto;*/
 }
 .tour_container .tour_title{
-	padding:15px;
+	padding: 7px 7px 15px 15px;
 	position:relative;
 }
 .tour_container .tour_title .rating{
-	font-size:14px;
+	font-size:12px;
 	margin-left:-3px;
 }
 .tour_container .tour_title h3{
 	margin:0;
-	font-size:18px;
+	font-size:12px;
 	text-transform:uppercase;
-        min-height: 40px;
+    min-height: 20px;
 }
 .wishlist{
 	position:absolute;
@@ -3761,7 +3763,8 @@ p
     width: 135px !important;
 }
 .product-img{
-    height:210px !important;
+    /*height:210px !important;*/
+    height:160px !important;
 }
 
 .btn_p {
@@ -3798,3 +3801,76 @@ a.btn_nav{
     text-transform:uppercase;
     font-weight:bold;
 }
+
+
+
+.catalog-price-bar{
+	border-bottom:1px solid #d9d9d9;
+	background-color: #333;
+	margin: 0px 1px 0px 1px;
+	line-height: 8px;
+}
+
+.text-size-18-bold-white {
+	font-weight:bold;
+	color:#fff;
+	font-size:18px;
+} 
+
+
+.text-size-11-bold-white {
+	font-weight:bold;
+	color:#fff;
+	font-size:11px;
+} 
+
+
+
+
+
+.float--left {
+  float: left;
+}
+
+
+.carouselWrap {
+  height: 100%;
+  /*
+  	width: 1140px;
+	color: white;
+  font-family: "Gill Sans / Gill Sans MT", sans-serif;
+  font-size: 3em;
+  line-height: 568px;
+  text-align: center;
+  */
+}
+
+.swipe-screen{
+	/*
+	height: 568px; width: 320px;
+	top: 119px; left: 60px;
+	*/
+	position: absolute;
+	overflow: hidden;
+	width:1130px;
+	height:97%;
+}
+
+.swipe-content {
+	height:100%;
+	width:100%;
+	/*background: #375585;*/
+	position: absolute;
+	top: 60px; 
+	left: 0px;
+	z-index: 300;
+	-webkit-transition: all 250ms ease;
+	   -moz-transition: all 250ms ease;
+	    -ms-transition: all 250ms ease;
+	     -o-transition: all 250ms ease;
+	        transition: all 250ms ease;
+}
+
+
+
+
