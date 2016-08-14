@@ -8,7 +8,7 @@
     "email": "sgdeals@www.com"
   },
   "scripts": {
-    "start": "ENV=development SETUP_PATH=/Users/rfoe/workspace/electron/singaporedeals-kiosk/config electron main.js",
+    "start": "ENV=development SETUP_PATH=/home/robin/workspace/electron/singaporedeals-kiosk/config electron main.js",
     "server": "babel-node server.js",
     "dev": "webpack start",
     "wp": "webpack",

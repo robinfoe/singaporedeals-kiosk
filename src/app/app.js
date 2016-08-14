@@ -28,7 +28,8 @@ var mainApp = {
 		var moduleName = 'myApp';
 		var myApp =  angular.module(moduleName, [
 			require('angular-route'),
-			require('angular-sanitize')
+			require('angular-sanitize'),
+			require( 'angular-bootstrap-npm' )
 		]);
 
 
@@ -78,7 +79,7 @@ var mainApp = {
 						decoded = decoded.replace('&trade;','™');
 						return $sce.trustAsHtml(decoded);
 			}}])
-			.directive('productDeck' , () => new ProductDeckDirective)
+			.directive('productDeck' , ['$uibModal' , ($uibModal) => new ProductDeckDirective($uibModal) ]  )
 			.directive('swipeAndSnap', () => new SwipeSnapDirective)
 			.factory("dbSchema" , function(){return mainApp.STATIC.SCHEMA;})
 			.service('productService' , ProductService)
