@@ -7,6 +7,7 @@ export default class ProductService {
       const lovefield = require('lovefield');
       this.lovefield = lovefield;
       this.dbSchema = dbSchema;
+      console.log('Created...');
        //Schema.getConn().then(conn => {
         // this.prodTable = conn.getSchema().table('product');
        //});
@@ -42,7 +43,7 @@ export default class ProductService {
     }
 
     paginate(filter){
-
+      console.log('paginating.....');
       return new Promise( (resolve , reject) => {
         this.dbSchema.getConn().then(conn => {
 

@@ -4,11 +4,24 @@ import angular from 'angular';
 import HomeController from './controller/HomeController.js';
 import ProductController from './controller/ProductController';
 import ContactController from './controller/ContactController.js';
+import BookingController from './controller/BookingController.js';
+import CartController from './controller/CartController.js';
+import ProductDetailModalController from './controller/ProductDetailModalController.js';
+
+
+
+
 import ProductService from './service/ProductService.js';
 import ProductReviewService from './service/ProductReviewService.js';
+import CartService from './service/CartService.js';
+
+
 
 import ProductDeckDirective from './directive/ProductDeckDirective.js';
 import SwipeSnapDirective from './directive/SwipeSnapDirective.js';
+import TouchSpinDirective from './directive/TouchSpinDirective.js';
+
+
 import WEBUTIL from './lib/util/WebUtil.js'
 
 import DbSchema from './lib/dal/Schema.js';
@@ -29,7 +42,7 @@ var mainApp = {
 		var myApp =  angular.module(moduleName, [
 			require('angular-route'),
 			require('angular-sanitize'),
-			require( 'angular-bootstrap-npm' )
+			require( 'angular-ui-bootstrap' )
 		]);
 
 
@@ -37,6 +50,9 @@ var mainApp = {
 			.controller('HomeController', HomeController)
 			.controller('ProductController', ProductController)
 			.controller('ContactController', ContactController)
+			.controller('BookingController',BookingController)
+			.controller('CartController',CartController)
+			.controller('ProductDetailModalController' , ProductDetailModalController)
 			.filter('showVotedIcon',[ '$sce' , ( $sce) => { return (item) => {
 				try{
 					//console.log(item);
@@ -75,15 +91,79 @@ var mainApp = {
 			}})
 			.filter('toAbsoluteValue' ,() => { return (value)=>{ return WEBUTIL.roundUp(value,0);  }  })
 			.filter('toSaveHtml',['$sce', ($sce)=> { return (value)=>{
-						var decoded = _.unescape(value);
-						decoded = decoded.replace('&trade;','™');
-						return $sce.trustAsHtml(decoded);
+				var decoded = _.unescape(value);
+				decoded = decoded.replace('&trade;','™');
+				return $sce.trustAsHtml(decoded);
 			}}])
-			.directive('productDeck' , ['$uibModal' , ($uibModal) => new ProductDeckDirective($uibModal) ]  )
+			.filter('generateFeaturedItems' , ()=>{ return (item)  => {
+					var featuredItems = [
+						{key : 'museum' , value : 'icon_set_1_icon-4', text : 'Museum'},
+						{key : 'hours' , value : 'icon_set_1_icon-83', text : item.hours + 'hours'},
+						{key : 'accessibiliy' , value : 'icon_set_1_icon-13', text : 'Accessibiliy'},
+						{key : 'attraction' , value : 'icon_set_1_icon-81', text : 'Attraction'},
+						{key : 'pet_allowed' , value : 'icon-users', text : 'Family'},
+						{key : 'audio_guide' , value : 'icon-user-pair', text : 'Couple'},
+						{key : 'tour_guide' , value : 'icon-ok', text : 'Tour guide'},
+						{key : 'wildlife' , value : 'icon-plus-squared-small', text : 'Wildlife'},
+						{key : 'park' , value : 'icon-ok', text : 'Park'},
+						{key : 'garden' , value : 'icon-garden', text : 'Garden'},
+						{key : 'adventure' , value : 'icon-plus-squared-small', text : 'Adventure'},
+						{key : 'free_entry' , value : 'icon-ok', text : 'Free Entry'},
+						{key : 'nature' , value : 'icon-plus-squared-small', text : 'Nature'},
+						{key : 'scenic' , value : 'icon-ok', text : 'Scenic'},
+						{key : 'culture' , value : 'icon-food-1', text : 'Culture'},
+						{key : 'food' , value : 'icon-plus-squared-small', text : 'Food'},
+						{key : 'relaxing' , value : 'icon-ok', text : 'Relaxing'},
+						{key : 'activity' , value : 'icon-plus-squared-small', text : 'Activity'},
+						{key : 'one_way_transfer' , value : 'icon-ok', text : 'One way transfer'},
+						{key : 'two_way_transfer' , value : 'icon-plus-squared-small', text : 'Two way transfer'},
+						{key : 'free_and_easy' , value : 'icon-ok', text : 'Free and Easy'},
+					];
+
+					var availableFeatures = [];
+					featuredItems.forEach((feature) => {
+						if(item[feature.key] == 1)
+							availableFeatures.push('<li ><i class="'+feature.value+'"></i>'+feature.text+'</li>');
+					});
+
+					if(availableFeatures.length > 0)
+						return '<ul class="featured_items">' + (availableFeatures.join(' ')) + '</ul> <br/><br/> ' ;
+
+					return '';
+
+				}
+			
+			}) // TODO :: generate feature icons ?? 
+			.filter('computeTotal' , ($filter) => {return(product, adultCount, childCount) => {
+				var total = 0;
+				total += $filter('computePrice')(product,'adult',adultCount);
+				total += $filter('computePrice')(product,'child',childCount);
+				return total;
+			}})
+			.filter('computePrice' , ($filter) => { return (product,type,count) => {
+				var price = $filter('getActualPrice')(product,type);
+				return price * count;
+			}})
+			.filter('getActualPrice', () => {return (product,type) => {
+				var price = (product['promo_'+type+'_price'] > 0) ? product['promo_'+type+'_price'] : product[type+'_price'];
+				return price+0.00;
+			}})
+			.directive('productDeck' , ['$uibModal' ,'sharedParamService', '$location', ($uibModal, sharedParamService , $location) => new ProductDeckDirective($uibModal,sharedParamService, $location) ]  )
 			.directive('swipeAndSnap', () => new SwipeSnapDirective)
+			.directive('touchSpin' , () => new TouchSpinDirective)
 			.factory("dbSchema" , function(){return mainApp.STATIC.SCHEMA;})
 			.service('productService' , ProductService)
-			.service('productReviewService' , ProductReviewService);
+			.service('productReviewService' , ProductReviewService)
+			.service('cartService', CartService)
+			.service('sharedParamService' , () => {
+				var parameter = null;
+				return { 
+					getParameter : () => {return parameter;},
+					setParameter :(param) => {parameter = param;}
+				}
+
+
+			});
 
 		myApp.config(function($routeProvider){
 			$routeProvider
@@ -100,6 +180,11 @@ var mainApp = {
 				.when('/contact',{
 					templateUrl : './partial/contact.html',
 					controller : 'ContactController',
+					controllerAs:'vm'
+				})
+				.when('/book',{
+					templateUrl : './partial/book.html',
+					controller : 'BookingController',
 					controllerAs:'vm'
 				})
 				.otherwise({redirectTo:'/home'});

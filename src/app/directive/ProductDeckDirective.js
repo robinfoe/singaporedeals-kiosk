@@ -1,12 +1,13 @@
 import WEBUTIL from '../lib/util/WebUtil'
 
 export default class ProductDeckDirective {
-    constructor($uibModal) {
+    constructor($uibModal, sharedParamService , $location) {
         this.templateUrl = './directive/product-deck.html';
         this.restrict = 'E';
         this.scope = { item : '=item'};
-        console.log($uibModal);
         this.$uibModal = $uibModal;
+        this.sharedParamService = sharedParamService;
+        this.$location = $location;
     }
 
     link(scope, element, attrs){
@@ -20,18 +21,22 @@ export default class ProductDeckDirective {
 
 
       scope.showDetails = (item) => {
-        console.log(item);
-        console.log("clicked");
         var modalInstance = this.$uibModal.open({
           animation: true,
           templateUrl: './partial/product-detail.html',
+          size : 'lg',
+          controller: 'ProductDetailModalController',
           resolve: {
-            items: function () {
-              return scope.items;
+            item: function () {
+              return item;
             }
           }
-      });
+        });
+      };
 
+      scope.proceedBooking = (item) =>{
+        this.sharedParamService.setParameter(item);
+        this.$location.path('/book');
       };
 
 

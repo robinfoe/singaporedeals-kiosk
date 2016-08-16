@@ -1,23 +1,22 @@
 <header id="plain" ondragstart="return false;" ondrop="return false;">
   <div class="container">
     <div class="col-md-3 col-sm-3 col-xs-3">
-                      <div id="logo">
-                          <a href="#"><img src="./resource/images/logo_sticky.png" width="220" height="60" alt="Stability" data-retina="true" class="logo_normal"></a>
-                          <a href="#"><img src="./resource/images/logo_sticky.png" width="220" height="60" alt="Stability" data-retina="true" class="logo_sticky"></a>
-                      </div>
-                  </div>
-                  <nav class="col-md-9 col-sm-9 col-xs-9">
-                      <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
-                      <div class="main-menu">
-                          <div id="header_menu">
-                              <img src="./resource/images/logo_sticky.png" width="220" height="60" alt="Stability" data-retina="true">
-                          </div>
-                          <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
-                          <ul>
-                              <a class="btn_1 white menubtn cherry process" href="#/home">Home</a>
-                              <a class="btn_1 white menubtn cherry process" href="#/product">Products</a>
-                              <a class="btn_1 white menubtn cherry process" href="#/contact">Contact Us</a>
-                              <button type="button" class="btn_1 white menubtn cherry" data-toggle="modal" data-target="#myModal"> Price List </button>
+        <div id="logo">
+            <a href="#"><img src="./resource/images/logo_sticky.png" width="220" height="60" alt="Stability" data-retina="true" class="logo_normal"></a>
+            <a href="#"><img src="./resource/images/logo_sticky.png" width="220" height="60" alt="Stability" data-retina="true" class="logo_sticky"></a>
+        </div>
+    </div>
+    <nav class="col-md-9 col-sm-9 col-xs-9">
+        <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+        <div class="main-menu">
+            <div id="header_menu">
+                <img src="./resource/images/logo_sticky.png" width="220" height="60" alt="Stability" data-retina="true">
+            </div>
+            <a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
+                <a class="btn_1 white menubtn cherry process" href="#/home">Home</a>
+                <a class="btn_1 white menubtn cherry process" href="#/product">Products</a>
+                <a class="btn_1 white menubtn cherry process" href="#/contact">Contact Us</a>
+                <button type="button" class="btn_1 white menubtn cherry" data-toggle="modal" data-target="#myModal"> Price List </button>
 
   				<!-- Modal -->
   				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -37,6 +36,19 @@
   				    </div>
   				  </div>
   				</div>
+          <ul id="top_tools">
+            <li>
+                <div ng-controller="CartController" class="dropdown dropdown-cart">
+                  <a href="#" class="btn_1 green dropdown-toggle btn_hover" data-toggle="dropdown">
+                    <i class=" icon-basket-1"></i><span id="cart_header" >Cart ( {{count()}} ) </span>
+                  </a>
+                     
+              </div>
+            </li>
+          </ul>
       </div>
+
+
+      
   </div>
 </header>

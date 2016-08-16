@@ -1,0 +1,79 @@
+<div class="container margin_60">
+	<div class="row">
+		<div class="col-md-8" >
+			<table class="table table-striped cart-list1 add_bottom_30">
+				<thead>
+					<tr>
+						<th>Item</th>
+		                <th>Adults</th>
+		                <th>Child</th>
+                		<th>Total</th>
+                	</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<div class="thumb_cart">
+		                        <img class="thum_img" src="resource/images/products/{{bookItem.product.image}}" alt="">
+		                    </div>
+		                     <span class="item_cart">{{ bookItem.product.title | toSaveHtml }}</span><br><br>
+						</td>
+
+						<td>
+		                    <touch-spin quantity="bookItem.adult" max="50" min="1" /> 
+		                </td>
+		                <td>
+		                    <touch-spin quantity="bookItem.child" max="50" min="0" /> 
+		                </td>
+		                <td class='price_itm'>
+                    		<strong >SGD <span>{{bookItem.product | computeTotal:bookItem.adult : bookItem.child  }}</span></strong>
+                		</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+
+		<aside class="col-md-4">
+			<div class="box_style_1">
+        		<h3 class="inner">- Summary -</h3>
+        		<table class="table table_summary">
+		        <tbody id="side_cart">
+		            <tr>
+		                <th><strong>Items</strong></th>
+		                <th class="text-right"><strong>Price(SGD)</strong></th>
+		            </tr>
+
+		            <tr>
+		                <td>Adult ( {{bookItem.product | getActualPrice:'adult'}} x {{bookItem.adult}} )</td>
+		                <td class="text-right">
+		                	{{ bookItem.product | computePrice:'adult':bookItem.adult}}
+		                </td>
+		            </tr>
+		            <tr>
+		                <td>Child ( {{bookItem.product | getActualPrice:'child'}} x {{bookItem.child}} )</td>
+		                <td class="text-right">
+		                	{{ bookItem.product | computePrice:'child':bookItem.child}}
+		                </td>
+		            </tr>
+		            <tr class="total">
+			            <td>Total cost</td>
+			            <td class="text-right">
+			                {{bookItem.product | computeTotal:bookItem.adult : bookItem.child  }}
+			            </td>
+			        </tr>  
+		         </tbody>
+		        </table>
+        	</div>
+		</aside>
+
+	</div> <!-- END OF ROW -->
+	<div class="row">
+		<div class="col-md-8" >
+			<a class="btn_1 outline pull-left" style="width: 35%;padding: 10px;text-align: center;font-size: 16px;" href="#/home"><i class="icon-right"></i> Continue shopping</a>
+        	<a class="btn_1 green pull-right" style="width: 35%;padding: 12px;text-align: center;font-size: 16px;" href="#">Add To Cart</a>
+         	
+		</div>
+	</div>
+</div>

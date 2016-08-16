@@ -60,7 +60,10 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-background:#f9f9f9; font-size:12px; line-height:20px; font-family:"Montserrat", Arial, sans-serif; color:#565a5c;-webkit-font-smoothing: antialiased;}
+background:#f9f9f9; 
+font-size:12px; line-height:20px; 
+font-family:"Montserrat", Arial, sans-serif; 
+color:#565a5c;-webkit-font-smoothing: antialiased;}
 
 h1, h2, h3, h4, h5, h6{-webkit-font-smoothing:antialiased; color:#333;}
 h3{ font-size:22px;}
@@ -1663,7 +1666,7 @@ a#filters_col_bt .icon_set_1_icon-65{
 input.qty2 {position: relative; width:35px; height:40px; border-radius:none; text-align:center; left:31px; font-size:12px; padding:5px;}
 .button_inc {text-indent: -9999px;cursor: pointer;position:absolute; width:33px; height:40px;z-index:9;}
 .dec {
-	background:#fff url(../img/minus.png) no-repeat center center;
+	background:#fff url(../images/minus.png) no-repeat center center;
 	border: 1px solid #cccccc;
 	 left:0; top:0;
 	 -webkit-border-top-left-radius: 4px;
@@ -1674,7 +1677,7 @@ input.qty2 {position: relative; width:35px; height:40px; border-radius:none; tex
 	border-bottom-left-radius: 4px;
 }
 .inc {
-	background:#fff url(../img/plus.png) no-repeat center center;
+	background:#fff url(../images/plus.png) no-repeat center center;
 	right:0; top:0;
 	border: 1px solid #cccccc;
 	-webkit-border-top-right-radius: 4px;
@@ -3608,7 +3611,17 @@ line-height:3em !important;
 }
 .featured_items{
     border-bottom:none !important;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
+
+.featured_items li{
+	float:left; 
+	display:inherit;
+	margin-right : 5px;
+}
+
 .show_reviews{
     width:90%;
     margin-left:5%;
@@ -3870,3 +3883,4 @@ a.btn_nav{
 	     -o-transition: all 250ms ease;
 	        transition: all 250ms ease;
 }
+
