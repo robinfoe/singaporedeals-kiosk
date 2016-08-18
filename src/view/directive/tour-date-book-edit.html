@@ -1,0 +1,29 @@
+<div class="row" id="deliveryDateTime" ng-if="isAvailable()">
+	<div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label><i class="icon-calendar-7"></i>Select Date</label>
+            <input class="form-control"
+               ng-model="cartItem.tourDateTime.date"
+               ng-model-options="{ updateOn: 'blur' }"
+               placeholder="Select a date..."
+               format="ll"
+               today="true"
+               min-date="minDate"
+               change="onChange(newValue, oldValue)"
+               moment-picker="cartItem.tourDateTime.date"/>
+
+            
+            <!-- 
+        <datetimepicker data-ng-model="cartItem.tourDateTime.date"></datetimepicker>
+        -->
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+    	<div class="filter_type">
+    		<label><i class="icon-clock"></i>Select Time</label>
+    		<select class="form-control tour_time" ng-model="cartItem.tourDateTime.time">
+    			<option ng-repeat="item in availableTimes" value="{{item}}">{{item}}</option>
+    		</select>
+    	</div>
+    </div>
+</div>

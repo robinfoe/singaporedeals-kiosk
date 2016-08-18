@@ -12,8 +12,8 @@ export default class SwipeSnapDirective {
       positionX = 0; // The current position.
 
       hammerjs(element[0]).on('panstart', (ev) => {
-        console.log(ev);
-        console.log('pan start')
+     //   console.log(ev);
+      //  console.log('pan start')
 
         element.removeClass('animate');} );
       hammerjs(element[0]).on('panmove', (ev) => {

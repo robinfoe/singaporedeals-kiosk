@@ -59,7 +59,7 @@ export default class DbSchema {
                 {name : "promo_adult_price" , type : lf.Type.NUMBER},
                 {name : "promo_child_price" , type : lf.Type.NUMBER},
                 {name : "feature" , type : lf.Type.STRING},
-                {name : "time" , type : lf.Type.INTEGER},
+                {name : "time" , type : lf.Type.STRING},
                 {name : "date_mandatory" , type : lf.Type.NUMBER},
                 {name : "delivery_option" , type : lf.Type.STRING},
                 {name : "d_option" , type : lf.Type.INTEGER},

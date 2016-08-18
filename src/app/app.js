@@ -1,6 +1,12 @@
 'use strict';
 
 import angular from 'angular';
+//import moment from "moment";
+//import * as moment from 'moment';
+import * as momentpicker from "angular-moment-picker";
+
+
+//import angular-bootstrap-datetimepicker from 'angular-bootstrap-datetimepicker';
 import HomeController from './controller/HomeController.js';
 import ProductController from './controller/ProductController';
 import ContactController from './controller/ContactController.js';
@@ -20,6 +26,8 @@ import CartService from './service/CartService.js';
 import ProductDeckDirective from './directive/ProductDeckDirective.js';
 import SwipeSnapDirective from './directive/SwipeSnapDirective.js';
 import TouchSpinDirective from './directive/TouchSpinDirective.js';
+import TourDateDirective from './directive/TourDateDirective.js';
+
 
 
 import WEBUTIL from './lib/util/WebUtil.js'
@@ -27,7 +35,6 @@ import WEBUTIL from './lib/util/WebUtil.js'
 import DbSchema from './lib/dal/Schema.js';
 import SystemSetup from './lib/setup/SystemSetup.js';
 var _ = require('underscore');
-
 
 var mainApp = {
 
@@ -42,7 +49,10 @@ var mainApp = {
 		var myApp =  angular.module(moduleName, [
 			require('angular-route'),
 			require('angular-sanitize'),
-			require( 'angular-ui-bootstrap' )
+			require('angular-ui-bootstrap'),
+			'moment-picker'
+			//'ui.bootstrap.datetimepicker'
+			
 		]);
 
 
@@ -151,6 +161,7 @@ var mainApp = {
 			.directive('productDeck' , ['$uibModal' ,'sharedParamService', '$location', ($uibModal, sharedParamService , $location) => new ProductDeckDirective($uibModal,sharedParamService, $location) ]  )
 			.directive('swipeAndSnap', () => new SwipeSnapDirective)
 			.directive('touchSpin' , () => new TouchSpinDirective)
+			.directive('tourDate' , () => new TourDateDirective)
 			.factory("dbSchema" , function(){return mainApp.STATIC.SCHEMA;})
 			.service('productService' , ProductService)
 			.service('productReviewService' , ProductReviewService)

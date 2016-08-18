@@ -7,11 +7,6 @@ export default class ProductService {
       const lovefield = require('lovefield');
       this.lovefield = lovefield;
       this.dbSchema = dbSchema;
-      console.log('Created...');
-       //Schema.getConn().then(conn => {
-        // this.prodTable = conn.getSchema().table('product');
-       //});
-		  //  this.$http = $http;
     }
 
 
@@ -43,7 +38,6 @@ export default class ProductService {
     }
 
     paginate(filter){
-      console.log('paginating.....');
       return new Promise( (resolve , reject) => {
         this.dbSchema.getConn().then(conn => {
 
@@ -88,16 +82,8 @@ export default class ProductService {
         });
 
       });
-
-
-
     }
 
-
-	// Example service function
-	//getData () {
-	//	return this.$http({method: 'GET', url: './api' });
-	//}
 }
 
 ProductService.$inject = ['dbSchema'];

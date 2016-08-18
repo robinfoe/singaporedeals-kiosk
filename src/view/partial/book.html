@@ -20,17 +20,18 @@
 						</td>
 
 						<td>
-		                    <touch-spin quantity="bookItem.adult" max="50" min="1" /> 
+		                    <touch-spin quantity="bookItem.adult.count" callback="refreshCount()"max="50" min="1" /> 
 		                </td>
 		                <td>
-		                    <touch-spin quantity="bookItem.child" max="50" min="0" /> 
+		                    <touch-spin quantity="bookItem.child.count" callback="refreshCount()" max="50" min="0" /> 
 		                </td>
 		                <td class='price_itm'>
-                    		<strong >SGD <span>{{bookItem.product | computeTotal:bookItem.adult : bookItem.child  }}</span></strong>
+                    		<strong >SGD <span>{{bookItem.totalPrice }}</span></strong>
                 		</td>
 					</tr>
 				</tbody>
 			</table>
+			<tour-date cart-item="bookItem" />
 		</div>
 
 
@@ -46,21 +47,21 @@
 		            </tr>
 
 		            <tr>
-		                <td>Adult ( {{bookItem.product | getActualPrice:'adult'}} x {{bookItem.adult}} )</td>
+		                <td>Adult ( {{bookItem.adult.price }} x {{bookItem.adult.count}} )</td>
 		                <td class="text-right">
-		                	{{ bookItem.product | computePrice:'adult':bookItem.adult}}
+		                	{{ bookItem.adult.totalPrice }}
 		                </td>
 		            </tr>
 		            <tr>
-		                <td>Child ( {{bookItem.product | getActualPrice:'child'}} x {{bookItem.child}} )</td>
+		                <td>Child ( {{bookItem.child.price }} x {{bookItem.child.count}} )</td>
 		                <td class="text-right">
-		                	{{ bookItem.product | computePrice:'child':bookItem.child}}
+		                	{{ bookItem.child.totalPrice }}
 		                </td>
 		            </tr>
 		            <tr class="total">
 			            <td>Total cost</td>
 			            <td class="text-right">
-			                {{bookItem.product | computeTotal:bookItem.adult : bookItem.child  }}
+			                {{bookItem.totalPrice}}
 			            </td>
 			        </tr>  
 		         </tbody>
@@ -69,6 +70,9 @@
 		</aside>
 
 	</div> <!-- END OF ROW -->
+
+
+
 	<div class="row">
 		<div class="col-md-8" >
 			<a class="btn_1 outline pull-left" style="width: 35%;padding: 10px;text-align: center;font-size: 16px;" href="#/home"><i class="icon-right"></i> Continue shopping</a>

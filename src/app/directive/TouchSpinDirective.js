@@ -7,11 +7,9 @@ export default class TouchSpinDirective {
         this.scope = { 
           quantity : '=quantity',
           min : '=min',
-          max : '=max'
+          max : '=max',
+          callback : '&callback'
         };
-
-        //console.log(this.scope);
-
     }
 
     link(scope, element, attrs){
@@ -36,6 +34,8 @@ export default class TouchSpinDirective {
           return;
         
         scope.quantity++;
+        if(scope.callback)
+          scope.callback();
       };
 
       scope.decrease = () => {
@@ -43,6 +43,8 @@ export default class TouchSpinDirective {
           return;
 
         scope.quantity--;
+        if(scope.callback)
+          scope.callback();
       };
     }
 
