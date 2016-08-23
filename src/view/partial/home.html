@@ -2,11 +2,11 @@
 
 
 <div class="col-md-12 padding-top-60px swipe-screen" >
-  <div class="swipe-content">
-      <div class="carouselWrap" swipe-and-snap snap-locations="[0, -1130, -2260]" ng-style="{'width' : displayWidth }">
+  <div class="swipe-content"> <!-- [0, -1130, -2260] [0,-1130,-5650] [ 0 , -1130 ,-4520] {{snapRegion}}-->
+      <div class="carouselWrap" swipe-and-snap get-snap-region="getSnapRegion()" ng-style="{'width' : displayWidth }">
         <div ng-repeat="blocks in items" >
-          <div class="float--left">
-              <div class="row margin_top " ng-repeat="blockItems in blocks">
+          <div class="float--left" style="width:1130px">
+              <div class="row margin_top " ng-repeat="blockItems in blocks" style="width:1160px">
                 <div class="col-md-3 col-sm-3 wow" data-wow-delay="0.1s" ng-repeat="item in blockItems">
                   <product-deck item="item"></product-deck>
               </div>

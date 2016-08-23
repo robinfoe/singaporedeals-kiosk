@@ -27,6 +27,7 @@ import ProductDeckDirective from './directive/ProductDeckDirective.js';
 import SwipeSnapDirective from './directive/SwipeSnapDirective.js';
 import TouchSpinDirective from './directive/TouchSpinDirective.js';
 import TourDateDirective from './directive/TourDateDirective.js';
+import DeliveryOptionDirective from './directive/DeliveryOptionDirective.js';
 
 
 
@@ -162,6 +163,7 @@ var mainApp = {
 			.directive('swipeAndSnap', () => new SwipeSnapDirective)
 			.directive('touchSpin' , () => new TouchSpinDirective)
 			.directive('tourDate' , () => new TourDateDirective)
+			.directive('deliverySelection', () => new DeliveryOptionDirective)
 			.factory("dbSchema" , function(){return mainApp.STATIC.SCHEMA;})
 			.service('productService' , ProductService)
 			.service('productReviewService' , ProductReviewService)

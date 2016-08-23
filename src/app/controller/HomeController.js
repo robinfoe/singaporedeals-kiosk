@@ -12,20 +12,23 @@ class HomeController{
         totalPage : 0,
         searchFilter : [
                   {name : 'is_deleted' , value : 'N'},
-                  {name : 'is_active' , value : 'Y'},
-                  {name : 'is_feature' , value : 'Y'}
+                  {name : 'is_active' , value : 'Y'}
+                 // {name : 'is_feature' , value : 'Y'}
                 ],
         order : []
-    }
+    };
 
-    //this.$scope.nextPage = () => {this.nextPage();}
-    //this.$scope.prevPage = () => {this.prevPage();}
+    this.$scope.snapRegion = [0];
+   
+    this.$scope.getSnapRegion = () => { 
+      return this.$scope.snapRegion;
+    };
+
     this.paginate();
   }
 
   paginate(){
-    
-
+    //this.$scope.snapRegion=[0,-1130,0];
     this.productService.paginateCount(this.$scope.pagination).then( (result) => {
       this.$scope.pagination.totalRecord = result;
       this.$scope.pagination.totalPage = Math.round(result / this.$scope.pagination.rowPerPage);
@@ -36,7 +39,7 @@ class HomeController{
           item.review = _.find(records.itemsReview , (val) => {return item.id === val.PRODUCT_ID;});
         });
         //console.log(items);
-      // this.$scope.items  = [];
+        //this.$scope.items  = [];
         //var blocks = [];
         //var count = 0 ;
 
@@ -44,6 +47,15 @@ class HomeController{
         var blocks = _.chain(lists).groupBy( (element,index) =>{ return Math.floor(index/2);}  ).toArray().value();
         this.$scope.items = blocks;
         this.$scope.displayWidth =  (this.$scope.items.length * 1130) + "px" ;
+        this.$scope.snapRegion = []; //[0, -1130,  ((this.$scope.items.length - 1 ) * -1130) ];
+        var snap = 0;
+        this.$scope.items.forEach( (item) =>{
+          this.$scope.snapRegion.push(snap);
+          snap += -1130;
+        });
+
+
+        //this.$scope.snapRegion = '[0, -1130, ' + ((this.$scope.items.length -1) * -1130) + ']';
 
 
        /*

@@ -4,6 +4,7 @@ var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 var BUILD_DIR = path.resolve(__dirname, 'build');
 var APP_DIR = path.resolve(__dirname, 'src');
+var ASSET_DIR = path.resolve(__dirname, 'asset');
 var config = {
   entry: [
     APP_DIR + '/app/app',
@@ -19,7 +20,16 @@ var config = {
     }, {
       test: /\.png|\.svg$/,
       loaders: ['file-loader']
-    }]
+    }, 
+    {
+      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+      loader: 'url',
+      query: {
+       limit: 10000,
+       name: path.join(ASSET_DIR, 'font/[name].[ext]')
+      }
+    }
+    ]
   },
   output: {
     path: BUILD_DIR,

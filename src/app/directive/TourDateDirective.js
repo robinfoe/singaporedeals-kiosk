@@ -4,6 +4,7 @@ var _ = require('underscore');
 export default class TourDateDirective {
     constructor() {
         this.template = '<div ng-include="getContentUrl()"></div>';
+        //this.templateUrl = './directive/tour-date-book-edit.html';
         this.restrict = 'AE';
         this.scope = { 
           cartItem : '=cartItem'

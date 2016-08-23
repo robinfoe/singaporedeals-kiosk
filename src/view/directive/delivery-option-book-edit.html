@@ -1,0 +1,9 @@
+<div  class="col-sm-6" style="margin-left:-10px;">
+	<label>Select Delivery Option:</label>
+	<div class="funkyradio">
+		<div class="col-sm-6 col-xs-12 funkyradio-success" ng-repeat="delivery in availableDeliveries">
+			<input class="TicketType" ng-model="cartItem.deliveryOption" type="radio" value="{{delivery}}"/>
+			<label ng-click="assign(delivery)">{{delivery}}</label>
+		</div>
+	</div>
+</div>

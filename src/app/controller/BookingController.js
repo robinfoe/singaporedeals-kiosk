@@ -4,7 +4,7 @@ class BookingController{
     this.$scope.message = 'Booking Page';
     this.cartService = cartService;
     this.sharedParamService = sharedParamService;
-    this.$scope.bookItem = cartService.createCartItem(sharedParamService.getParameter());
+    this.$scope.bookItem = cartService.findOrCreate(sharedParamService.getParameter());
 
     this.$scope.refreshCount = () => {
         $timeout(() => {
@@ -21,6 +21,8 @@ class BookingController{
 
 
   addToCart(){
+    console.log(this.$scope.bookItem);
+    this.cartService.addItem(this.$scope.bookItem);
     // TODO :: logic to add to cart..... 
   }
 

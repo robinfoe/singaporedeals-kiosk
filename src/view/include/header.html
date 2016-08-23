@@ -38,10 +38,38 @@
   				</div>
           <ul id="top_tools">
             <li>
-                <div ng-controller="CartController" class="dropdown dropdown-cart">
-                  <a href="#" class="btn_1 green dropdown-toggle btn_hover" data-toggle="dropdown">
+                <div ng-controller="CartController" uib-dropdown class="dropdown dropdown-cart">
+
+                  <button id="single-button" type="button" class="btn_1 green btn_hover dropdown-toggle" uib-dropdown-toggle>
                     <i class=" icon-basket-1"></i><span id="cart_header" >Cart ( {{count()}} ) </span>
-                  </a>
+                  </button>
+
+                  <ul id="cart_items" class="dropdown-menu " uib-dropdown-menu role="menu" aria-labelledby="single-button" style="width: 320px !important;font-size:14px !important;">
+                    <li ng-repeat="cart in getCarts()">
+                        <div class="image">
+                          <img class="thum_img" src="resource/images/products/{{cart.product.image}}" alt="">
+                        </div>
+                        <strong>
+                          <span class="text-size-12-bold-white" ng-click="goToCart(cart)">{{cart.product.title | toSaveHtml }}</span>
+                          
+                        </strong>
+                        <span class="pull-left text-soft-grey"> {{cart.adult.count}} Adult(s) {{cart.child.count}} Child(s) @ ${{cart.totalPrice}}</span>
+                      </li>  
+
+                      <li>
+                        <div>Total : SGD <span id="cart_total">{{getGrandTotal()}}</span></div>
+                        <a href="#" class="btn-cart button_drop">Go to cart</a>
+                        <a href="#" class="btn-cart button_drop outline" style="margin-left:26px">Check out</a>
+                        <a href="#" class="button_drop outline" style="font-size: 14px !important;line-height: 2.5em !important;margin-top:12px;width:100%">
+                          <div id="progress" title="Code: 0xe802" class="the-icons" style="width:100%;padding: 0px !important; display:none; font-size:16px">
+                            <i class="icon-spin5 animate-spin"></i>
+                            <span class="i-name"></span><span class="i-code"></span>
+                          </div>Clear Cart & Start Over
+                          </a>
+                      </li>  
+                  </ul>
+
+                  
                      
               </div>
             </li>

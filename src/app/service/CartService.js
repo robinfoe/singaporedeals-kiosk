@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 export default class CartService {
     constructor() {
       this.items = [];
@@ -5,7 +7,28 @@ export default class CartService {
 
     getItems(){return this.items;}
 
-    addItem(cartItem){this.items.push(cartItem);}
+    addItem(cartItem){
+      var index = _.findIndex(this.items , (item) => { return item.product.id == cartItem.product.id;} );
+      if(index == -1)
+        this.items.push(cartItem);
+      else
+        this.items[index] = cartItem;
+    }
+
+    getGrandTotal(){
+      var price = 0;
+      this.items.forEach( (item) => {price += item.totalPrice;}  );
+      return price;
+    }
+
+
+    findOrCreate(product){
+      var cart = _.find(this.items , (item) => {
+        return item.product.id == product.id;
+      });
+
+      return (!cart) ? this.createCartItem(product) : cart;
+    }
 
     createCartItem(product){
       var cart = new CartItem(product);
@@ -41,7 +64,7 @@ class CartItem {
 
     this.totalPrice = 0.00;
     this.additionalServices = [];
-    this.deliveryOptions= null;
+    this.deliveryOption= null;
     this.tourDateTime = {
       date : null,
       time : null

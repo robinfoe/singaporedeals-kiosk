@@ -26,12 +26,13 @@
 		                    <touch-spin quantity="bookItem.child.count" callback="refreshCount()" max="50" min="0" /> 
 		                </td>
 		                <td class='price_itm'>
-                    		<strong >SGD <span>{{bookItem.totalPrice }}</span></strong>
+		                	<strong >SGD <span>{{bookItem.totalPrice }}</span></strong>
                 		</td>
 					</tr>
 				</tbody>
 			</table>
-			<tour-date cart-item="bookItem" />
+			<tour-date cart-item="bookItem"></tour-date>
+			<delivery-selection cart-item="bookItem"></delivery-selection>
 		</div>
 
 
@@ -76,7 +77,7 @@
 	<div class="row">
 		<div class="col-md-8" >
 			<a class="btn_1 outline pull-left" style="width: 35%;padding: 10px;text-align: center;font-size: 16px;" href="#/home"><i class="icon-right"></i> Continue shopping</a>
-        	<a class="btn_1 green pull-right" style="width: 35%;padding: 12px;text-align: center;font-size: 16px;" href="#">Add To Cart</a>
+        	<a class="btn_1 green pull-right" style="width: 35%;padding: 12px;text-align: center;font-size: 16px;" ng-click="vm.addToCart()">Add To Cart</a>
          	
 		</div>
 	</div>
