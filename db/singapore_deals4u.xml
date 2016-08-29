@@ -6372,7 +6372,7 @@ ipn_track_id = 876d885ad836
             <column name="promo_child_price">48.00</column>
             <column name="feature"></column>
             <column name="time">10:00AM,10:30AM,11:00AM,11:30AM,12:00AM,12:30AM,1:00PM,1:30PM,2:00PM,2:30PM,3:00PM,3:30PM,4:00PM</column>
-            <column name="other_services"></column>
+            <column name="other_services">23,24,25,26,27</column>
             <column name="date_mandatory">2</column>
             <column name="delivery_option">AT</column>
             <column name="d_option">1</column>
@@ -6439,7 +6439,7 @@ ipn_track_id = 876d885ad836
             <column name="promo_child_price">20.00</column>
             <column name="feature"></column>
             <column name="time"></column>
-            <column name="other_services"></column>
+            <column name="other_services">23,24,25,26,27</column>
             <column name="date_mandatory">2</column>
             <column name="delivery_option">AT</column>
             <column name="d_option">3</column>
@@ -24231,8 +24231,8 @@ Close to a variety of eating places.</column>
             <column name="services">Dedicated Tour guide</column>
             <column name="price">34.00</column>
             <column name="sort_order">1</column>
-            <column name="is_active">N</column>
-            <column name="is_deleted">Y</column>
+            <column name="is_active">Y</column>
+            <column name="is_deleted">N</column>
             <column name="img_class">icon_set_1_icon-16</column>
         </table>
         <table name="services">
@@ -24249,8 +24249,8 @@ Close to a variety of eating places.</column>
             <column name="services">Insurance</column>
             <column name="price">24.00</column>
             <column name="sort_order">3</column>
-            <column name="is_active">N</column>
-            <column name="is_deleted">Y</column>
+            <column name="is_active">Y</column>
+            <column name="is_deleted">N</column>
             <column name="img_class">icon_set_1_icon-71</column>
         </table>
         <table name="services">
@@ -24258,8 +24258,8 @@ Close to a variety of eating places.</column>
             <column name="services">Coffe break</column>
             <column name="price">12.00</column>
             <column name="sort_order">5</column>
-            <column name="is_active">N</column>
-            <column name="is_deleted">Y</column>
+            <column name="is_active">Y</column>
+            <column name="is_deleted">N</column>
             <column name="img_class">icon_set_1_icon-59</column>
         </table>
         <table name="services">

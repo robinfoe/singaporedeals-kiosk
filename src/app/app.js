@@ -12,7 +12,10 @@ import ProductController from './controller/ProductController';
 import ContactController from './controller/ContactController.js';
 import BookingController from './controller/BookingController.js';
 import CartController from './controller/CartController.js';
+import CartPreviewController from './controller/CartPreviewController.js';
 import ProductDetailModalController from './controller/ProductDetailModalController.js';
+import ProductServiceModalController from './controller/ProductServiceModalController.js';
+import CheckOutController from './controller/CheckOutController.js';
 
 
 
@@ -28,6 +31,12 @@ import SwipeSnapDirective from './directive/SwipeSnapDirective.js';
 import TouchSpinDirective from './directive/TouchSpinDirective.js';
 import TourDateDirective from './directive/TourDateDirective.js';
 import DeliveryOptionDirective from './directive/DeliveryOptionDirective.js';
+import ShakeThatDirective from './directive/ShakeThatDirective.js';
+import AvailableServiceDirective from './directive/AvailableServiceDirective.js';
+
+
+
+
 
 
 
@@ -51,6 +60,7 @@ var mainApp = {
 			require('angular-route'),
 			require('angular-sanitize'),
 			require('angular-ui-bootstrap'),
+			require('angular-animate'),
 			'moment-picker'
 			//'ui.bootstrap.datetimepicker'
 			
@@ -58,12 +68,19 @@ var mainApp = {
 
 
 		myApp
+			.run(($rootScope) => {
+				$rootScope.EVENT = WEBUTIL.EVENT
+				$rootScope.CHECKOUT_STATE = WEBUTIL.CHECKOUT_STATE;
+			})
 			.controller('HomeController', HomeController)
 			.controller('ProductController', ProductController)
 			.controller('ContactController', ContactController)
 			.controller('BookingController',BookingController)
 			.controller('CartController',CartController)
+			.controller('CartPreviewController',CartPreviewController)
 			.controller('ProductDetailModalController' , ProductDetailModalController)
+			.controller('ProductServiceModalController' , ProductServiceModalController)
+			.controller('CheckOutController' , CheckOutController)
 			.filter('showVotedIcon',[ '$sce' , ( $sce) => { return (item) => {
 				try{
 					//console.log(item);
@@ -93,12 +110,15 @@ var mainApp = {
 				return '';
 
 			}}])
+			.filter('showIcon' , [ '$sce' , ( $sce) => {return (service) => {
+				var iconElement = '<i class="icon-shop thumbnail fa-lg"></i>';
+				if(! WEBUTIL.isStringEmpty(service.img_class))
+					iconElement = '<i class="'+service.img_class+' thumbnail fa-lg" style="margin-bottom:0 !important;"></i>';
+				
+				return $sce.trustAsHtml(iconElement);
+			}}])
 			.filter('showEticket',  () => { return (item) =>  {
-
 				return (item && WEBUTIL.isEticketAvailable(item.category_id , item.d_option) ) ? 'E-Ticket' : '';
-				//WEBUTIL.isEticketAvailable(catId, deliveryOption){
-
-
 			}})
 			.filter('toAbsoluteValue' ,() => { return (value)=>{ return WEBUTIL.roundUp(value,0);  }  })
 			.filter('toSaveHtml',['$sce', ($sce)=> { return (value)=>{
@@ -164,6 +184,8 @@ var mainApp = {
 			.directive('touchSpin' , () => new TouchSpinDirective)
 			.directive('tourDate' , () => new TourDateDirective)
 			.directive('deliverySelection', () => new DeliveryOptionDirective)
+			.directive('shakeThat' , ['$animate' ,($animate) => new ShakeThatDirective($animate) ])
+			.directive('availableService' , ['productService' , (productService) => new AvailableServiceDirective(productService) ])
 			.factory("dbSchema" , function(){return mainApp.STATIC.SCHEMA;})
 			.service('productService' , ProductService)
 			.service('productReviewService' , ProductReviewService)
@@ -200,6 +222,16 @@ var mainApp = {
 					controller : 'BookingController',
 					controllerAs:'vm'
 				})
+				.when('/show-cart',{
+					templateUrl : './partial/cart-preview.html',
+					controller : 'CartPreviewController',
+					controllerAs:'vm'
+				})
+				.when('/check-out',{
+					templateUrl : './partial/check-out.html',
+					controller : 'CheckOutController',
+					controllerAs:'vm'
+				})
 				.otherwise({redirectTo:'/home'});
 
 		});
@@ -212,9 +244,9 @@ var mainApp = {
 
 	init: function(){
 		mainApp.STATIC.SYSTEM_SETUP = new SystemSetup();
-		console.log(mainApp.STATIC.SYSTEM_SETUP);
+		//console.log('preloading...');
 		mainApp.STATIC.SYSTEM_SETUP.preloadDB().then(function(extractedData){
-			console.log(extractedData);
+		//	console.log('preloading... done');
 			mainApp.STATIC.SCHEMA = new DbSchema();
 			mainApp.STATIC.SCHEMA.init().then(() => {
 				mainApp.STATIC.SCHEMA.populateDb(extractedData).then(function(){
@@ -228,8 +260,9 @@ var mainApp = {
 
 };
 
+try{
 mainApp.init();
-
+}catch(e){console.log(e);}
 
 
 /*

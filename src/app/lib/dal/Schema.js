@@ -7,8 +7,27 @@ export default class DbSchema {
     const lovefield = require('lovefield');
     this.lovefield = lovefield;
     this.schemaMap = this.buildDBField();
+    this.aliasMap = new Map();
+    //this.populateAlias();
+    //console.log(this.schemaMap);
     //this.init();
   }
+
+  /*
+  populateAlias(){
+    this.aliasMap = new Map();
+    this.schemaMap.forEach( (table) => {
+      table.columns.forEach( (column) => {
+        if(column.alias)
+          this.aliasMap.set(table.name + '|' + column.name , column.alias);
+      });
+    });
+  }
+
+  _getFieldAlias(tableName, fieldName){
+    return (this.aliasMap.has(tableName + '|' + fieldName)) ?  this.aliasMap.get( tableName + '|' + fieldName ) : fieldName;
+  }
+  */
 
   buildDBField(){
     var schemaMap = {
@@ -75,7 +94,8 @@ export default class DbSchema {
                 {name : "mask_id_child" , type : lf.Type.STRING},
                 {name : "cutoff_day" , type : lf.Type.INTEGER},
                 {name : "tour_duration" , type : lf.Type.NUMBER},
-                {name : "include_transfer" , type : lf.Type.INTEGER}
+                {name : "include_transfer" , type : lf.Type.INTEGER},
+                {name : "other_services" , type : lf.Type.STRING}
               ]
           }, // end of product
 
@@ -141,8 +161,21 @@ export default class DbSchema {
               {name : "name" , type : lf.Type.INTEGER},
               {name : "email" , type : lf.Type.INTEGER},
             ]
-          }// end of users
+          },// end of users
 
+          {// start of services
+            name : "services",
+            primary : "id",
+            columns : [
+              {name : "id" , type : lf.Type.INTEGER},
+              {name : "name" , type : lf.Type.STRING, alias : "services"},
+              {name : "price" , type : lf.Type.NUMBER},
+              {name : "sort_order" , type : lf.Type.NUMBER},
+              {name : "is_active" , type : lf.Type.STRING},
+              {name : "is_deleted" , type : lf.Type.STRING},
+              {name : "img_class" , type : lf.Type.STRING}
+            ]
+          }// end of services
 
         ],
     };
@@ -154,7 +187,6 @@ export default class DbSchema {
   init(){
     return new Promise( (resolve , reject) => {
       this.schemaBuilder = this.lovefield.schema.create(this.schemaMap.name, 1);
-      //var request = window.indexedDB.deleteDatabase(this.schemaMap.name);
       this.buildSchemaProduct();
       this.getConn().then((db) => {resolve(db);});
     });
@@ -213,16 +245,25 @@ export default class DbSchema {
 
   sanitizeField(fields, name){
     var tab = this.schemaMap.tables.find(table => table.name === name);
+    //console.log(fields);
     if(tab){
       tab.columns.forEach(column =>{
-        if(!fields[column.name]){
-          fields[column.name] = this.getDefaultValue(column.type);
+        //console.log(fields[column.name]);
+
+        var fieldName = column.name;
+        if(column.alias){
+          fields[fieldName] = fields[column.alias];
+          delete fields[column.alias];
+        }
+
+        if(!fields[fieldName]){
+          fields[fieldName] = this.getDefaultValue(column.type);
         }
 
         if(column.type === lf.Type.DATE_TIME)
-          fields[column.name] = new Date();
+          fields[fieldName] = new Date();
 
-        fields[column.name] = this.convertToType( column.type  , fields[column.name]);
+        fields[fieldName] = this.convertToType( column.type  , fields[fieldName]);
 
       });
     }
@@ -231,9 +272,10 @@ export default class DbSchema {
   }
 
   populateDb(dataset){
+    console.log('populating');
     return new Promise( (resolve, reject) => {
       this.getConn().then(db =>{
-        ["product","category","likes","reviews"].forEach(tableName =>{
+        ["product","category","likes","reviews","services"].forEach(tableName =>{
           var table = db.getSchema().table(tableName);
           var rows = [];
           var duplicates = []
@@ -247,10 +289,6 @@ export default class DbSchema {
       });
 
     });
-
-
-
-
 
   }
 

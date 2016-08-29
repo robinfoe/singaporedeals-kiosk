@@ -1,5 +1,9 @@
 {
   "PATH" : {
     "DB_SYNC" : "./db/singapore_deals4u.xml"
+  },
+  "PROPERTIES" : {
+  	"KIOSK_CODE" : "A0001",
+  	"KIOSK_LOCATION" : "Hotel Fragrance Bugis @ 33 Middle Rd 188942, Singapore"
   }
 }

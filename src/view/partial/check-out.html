@@ -1,0 +1,58 @@
+<div class="container margin_60">
+
+	<div class="row no-padding-no-margin">
+		<div class="col-md-8 no-padding-no-margin" >
+			<div class="row">
+				<div class="stepwizard col-md-12">
+					<div class="stepwizard-row setup-panel">
+						<div class="stepwizard-step" ng-repeat="step in steps">
+							<a type="button" ng-click="vm.proceedStep(step.code)" class="btn btn-primary btn-circle {{step.class}} ">{{$index + 1}}</a>
+        					<p>{{step.name}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<form>
+				<div ng-include="vm.$scope.currentStep.view">
+				</div>
+			</form>
+ 		
+		</div>
+
+
+		<aside class="col-md-4">
+			<div class="box_style_1">
+        		<h3 class="inner">- Summary -</h3>
+        		<table class="table table_summary">
+		        <tbody id="side_cart">
+		            <tr>
+		                <th><strong>Items</strong></th>
+		                <th class="text-right"><strong>Price(SGD)</strong></th>
+		            </tr>
+
+		            <tr ng-repeat="cartItem in vm.cartService.items">
+		                <td>
+		                	{{ cartItem.product.title | toSaveHtml }}
+		                </td>
+		                <td class="text-right">
+		                	$ {{ cartItem.totalPrice }}
+		                </td>
+		            </tr>
+		            
+		            <tr class="total">
+			            <td>Total cost</td>
+			            <td class="text-right">
+			                {{vm.cartService.getGrandTotal()}}
+			            </td>
+			        </tr>  
+		         </tbody>
+		        </table>
+
+		        <a class="btn_full_outline" href="#/home"><i class="icon-right"></i> Continue shopping</a>
+        	</div>
+		</aside>
+
+	</div>
+
+</div>

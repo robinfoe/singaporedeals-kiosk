@@ -1,0 +1,72 @@
+<div class="container margin_60">
+	<div class="row">
+		<div class="col-md-12" >
+			<table class="table table-striped cart-list add_bottom_30">
+	            <thead>
+	            	<tr>
+	            		<th>Item</th>
+		                <th>Adults</th>
+		                <th>Child</th>
+		                <th>Total ( SGD )</th>
+		                <th>Action</th>
+		           	</tr>
+	            </thead>
+	            <tbody>
+	            	<tr ng-repeat="bookItem in getCarts()">
+	            		<td class="col-md-5 col-s-5">
+	            			<div class="media">
+	            				<div class="thumb_cart">
+			                        	<img class="thum_img" src="resource/images/products/{{bookItem.product.image}}" alt="">
+			                    </div>
+			                    <div class="media-body">
+			                    	<span class="item_cart">{{ bookItem.product.title | toSaveHtml }}</span>
+			                    	<br>
+			                    	<ul class="list-inline">
+									  <li ng-repeat="service in bookItem.additionalServices" >
+									  	<span ng-bind-html='service | showIcon'></span>
+									  </li>
+									  
+									</ul>
+				                   
+				                </div>
+	            			</div>
+
+	            			
+	            		</td>
+	            		<td>
+		                    <touch-spin quantity="bookItem.adult.count" callback="refreshCount(bookItem)"max="50" min="1" /> 
+		                </td>
+		                <td>
+		                    <touch-spin quantity="bookItem.child.count" callback="refreshCount(bookItem)" max="50" min="0" /> 
+		                </td>
+		                <td align="right" class='price_itm'>
+		                	<strong >$<span>{{bookItem.totalPrice }}</span></strong>
+                		</td>
+                		
+                		<td>
+                			 <button class="btn_1" ng-click="vm.raiseService(bookItem)"><i class="icon-picture"></i>Services</button>
+                			 <button ng-click="vm.removeItem(bookItem)" class="btn_1 red"><i class=" icon-trash"></i>Remove</button>
+                		</td>
+	            	</tr>
+
+	            	<tr ng-if="vm.isCartExist()">
+	            		<td colspan="3" align="right">
+	            			<strong >Grand Total</strong>
+	            			
+	            		</td>
+	            		<td align="right">
+	            			<strong >$<span>{{getGrandTotal() }}</span></strong>
+	            		</td>
+	            		<td>
+	            			<a href="#/check-out" class="btn_1 green">Check out</a>
+	            		</td>
+
+	            	</tr>
+
+
+
+	            </tbody>
+        	</table>
+		</div>
+	</div>
+</div>

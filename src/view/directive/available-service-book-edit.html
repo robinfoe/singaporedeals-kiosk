@@ -1,0 +1,13 @@
+<div class="row" ng-if"isAvailable">
+	<div class="col-sm-12" >
+		<label>Available Services</label>
+		<div class="funkyradio">
+			<div class="col-sm-6 col-xs-12 funkyradio-success" ng-repeat="service in availableServices">
+				<input  ng-click="toggleService(service)" type="checkbox" value="{{service.name}}" ng-checked="isServiceSelected(service)"/>
+				<label ng-click="toggleService(service)" >
+					{{service.name}} (+ {{service.price}})
+				</label>
+			</div>
+		</div>
+	</div>
+</div>

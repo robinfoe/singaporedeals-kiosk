@@ -1,7 +1,11 @@
+import WEBUTIL from '../lib/util/WebUtil'
+
 class CartController{
-  constructor($scope,cartService){
+  constructor($scope,$location , $route , cartService, sharedParamService){
     this.$scope = $scope
     this.cartService = cartService;
+    this.$location = $location;
+    this.sharedParamService = sharedParamService;
 
     $scope.count = () => {
     	return this.cartService.items.length;
@@ -14,10 +18,22 @@ class CartController{
     $scope.getGrandTotal = () => {return this.cartService.getGrandTotal();};
 
     $scope.goToCart = (cartItem) => {
-    	console.log(cartItem);
+    	this.sharedParamService.setParameter(cartItem.product);
+        
+        if(this.$location.url() === '/book')
+            $route.reload();
+        else
+            this.$location.path('/book');
     };
+
+    $scope.clearCart = () => {
+        this.cartService.clearCart();
+        this.$location.path('/home');
+
+    }; 
+
   }
 }
 
-CartController.$inject=['$scope','cartService'];
+CartController.$inject=['$scope','$location','$route','cartService','sharedParamService'];
 export default CartController;

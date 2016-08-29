@@ -37,9 +37,8 @@ export default class SystemSetup{
           });
           //Schema.populateDb(extractedData);
           //Schema.echoField();
-          //console.log('Done');
-
-          //console.log(extractedData);
+//          console.log('Done');
+ //         console.log(extractedData);
           resolve(extractedData);
 
         });

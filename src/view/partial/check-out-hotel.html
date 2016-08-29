@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-md-6 col-sm-6">
+		<div class="form-group">
+			<input type="text" class="form-control" ng-model="orderForm.hotelDetail.firstName"  placeholder="Enter First Name" required="">
+		</div>
+	</div>
+	<div class="col-md-6 col-sm-6">
+		<div class="form-group">
+            <input type="text" class="form-control" ng-model="orderForm.hotelDetail.lastName"  placeholder="Enter Last Name" required="">
+		</div>
+	</div>
+</div>
+                            
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        <div class="form-group">
+            <input type="text" class="form-control label-font" ng-model="orderForm.hotelDetail.roomNumber"  placeholder="Enter Room no">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <div class="form-group">
+        <input type="text" class="form-control label-font" ng-model="orderForm.hotelDetail.email" placeholder="Enter Email Address"> 
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <input type="text" class="form-control label-font" ng-model="orderForm.hotelDetail.hotelLocation" disabled="disabled">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <a class="btn_1 green pull-right" style="width: 35%;padding: 12px;text-align: center;font-size: 16px;" ng-click="vm.next()"> Next <i class="icon-left"></i></a>
+    </div>
+</div>
+                            

@@ -1,0 +1,20 @@
+<div class="modal-header" style="border-bottom:none;">
+	<button id="close_modal" ng-click="mvm.dismiss()" class="btn btn-default" type="button" data-dismiss="modal" aria-label="Close" style="float: right;font-size: 14px;padding: 10px;">Close</button>   
+     <div class="thumb_cart">
+        <img class="thum_img" src="resource/images/products/{{cartItem.product.image}}" alt="" width="" height="">
+    </div>
+    <h3 class="modal-title">{{cartItem.product.title | toSaveHtml }}</h3>
+    <div class="rating" style="margin-bottom:0px;text-align:left" >
+        <span ng-bind-html='cartItem.product | showVotedIcon'></span>
+     </div>
+</div>
+<hr style="margin-top : 0px;">
+<div class="modal-body">
+    <available-service cart-item="cartItem"></available-service>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="mvm.submit()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="mvm.dismiss()">Cancel</button>
+</div>
+

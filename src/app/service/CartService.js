@@ -7,7 +7,10 @@ export default class CartService {
 
     getItems(){return this.items;}
 
+    
+
     addItem(cartItem){
+      cartItem = cartItem.clone();
       var index = _.findIndex(this.items , (item) => { return item.product.id == cartItem.product.id;} );
       if(index == -1)
         this.items.push(cartItem);
@@ -27,8 +30,13 @@ export default class CartService {
         return item.product.id == product.id;
       });
 
+      if(cart)
+        cart = cart.clone();
+      
       return (!cart) ? this.createCartItem(product) : cart;
     }
+
+    
 
     createCartItem(product){
       var cart = new CartItem(product);
@@ -40,6 +48,30 @@ export default class CartService {
     clearCart(){
       this.items = [];
     }
+
+    removeItem(cartItem){
+      var index = _.findIndex(this.items , (item) => { return item.product.id == cartItem.product.id });  
+      if(index >= 0)
+        this.items.splice(index, 1); 
+    }
+
+    isCartEmpty(){return this.items.length == 0;}
+
+    isProductExist(product){
+      var cart = _.find(this.items , (item) => {
+        return item.product.id == product.id;
+      });
+      return (cart) ? true : false;
+    }
+
+    isPhysicalTicketExist(){
+      var cart = _.find(this.items , (item) => {
+        return item.deliveryOption == "Physical Ticket";
+      });
+      return (cart) ? true : false;
+    }
+
+    
 }
 
 
@@ -72,6 +104,30 @@ class CartItem {
     
   }
 
+  clone(){
+    var cloned = new CartItem(this.product);
+    cloned.totalPrice = this.totalPrice;
+    cloned.deliveryOption = this.deliveryOption;
+
+    this.additionalServices.forEach( (item) => {cloned.additionalServices.push(item)} );
+
+    cloned.tourDateTime.date = this.tourDateTime.date;
+    cloned.tourDateTime.time = this.tourDateTime.time;
+
+
+    cloned.adult.price = this.adult.price;
+    cloned.adult.count = this.adult.count;
+    cloned.adult.totalPrice = this.adult.totalPrice;
+    cloned.adult.isPromo = this.adult.isPromo;
+
+    cloned.child.price = this.child.price;
+    cloned.child.count = this.child.count;
+    cloned.child.totalPrice = this.child.totalPrice;
+    cloned.child.isPromo = this.child.isPromo;
+
+    return cloned;
+  }
+
   initiatePrice(){
     this.adult.price = this.product.adult_price;
     if(this.product.promo_adult_price > 0){
@@ -91,6 +147,11 @@ class CartItem {
     this.adult.totalPrice = this.adult.price * this.adult.count;
     this.child.totalPrice = this.child.price * this.child.count;
     this.totalPrice = this.adult.totalPrice + this.child.totalPrice;
+
+    this.additionalServices.forEach( (service) =>{
+      this.totalPrice += service.price;
+    });
+
   }
 
   addAdult(){

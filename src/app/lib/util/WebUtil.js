@@ -1,6 +1,17 @@
 
 class WebUtil{
-  constructor(){}
+  constructor(){
+    this.EVENT = {
+      CART_CHANGED : 'CARTC'
+    };
+
+    this.CHECKOUT_STATE = {
+      HOTEL_DETAIL : 'HD',
+      PAYMENT_DETAIL : 'PD',
+      DELIVERY_TIME : 'DT'
+    }
+
+  }
 
   isStringEmpty(text){
     return (!text || 0 === text.length)

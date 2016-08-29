@@ -1,4 +1,4 @@
-
+import WEBUTIL from '../lib/util/WebUtil.js'
 import Promise from 'promise';
 
 
@@ -83,6 +83,40 @@ export default class ProductService {
 
       });
     }
+
+    getServiceByProduct(product){
+      return new Promise( (resolve , reject) => {
+        var otherServiceIds = product.other_services;
+        if(!WEBUTIL.isStringEmpty(otherServiceIds)){
+          this.dbSchema.getConn().then(conn => {
+            var ids = [];
+            
+            otherServiceIds.split(',').forEach( (val) => {
+              ids.push(parseInt(val));
+              var serviceTable = conn.getSchema().table('services');
+              var query = conn.select().from(serviceTable);
+              query.where(lf.op.and.apply(this,[ 
+                                serviceTable.id.in(ids) ,
+                                serviceTable.is_active.eq('Y'),
+                                serviceTable.is_deleted.eq('N')
+                                
+                              ]));
+
+              query
+                .orderBy(serviceTable.sort_order , lf.Order.ASC)
+                .exec()
+                .then( (result) => {
+                  resolve(result);
+                });
+            });
+          });
+        }else{
+          resolve([]);
+        }
+
+
+      });
+  }
 
 }
 
