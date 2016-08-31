@@ -1,12 +1,71 @@
+<!-- DELIVERY CHECKOUT -->
 <div class="row">
-	<div class="col-md-12">
-		Delivery....
+    <div class="col-md-12" style='margin-bottom:20px'>
+        <div class="form_title">
+            <h3 class="header_lineheight"><strong style='top:-10px !important;'>{{currentPage}}</strong>{{currentStep.name}}</h3>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+	<div class="col-md-12 funkyradio">
+	    <div class="col-md-6 funkyradio-success">
+	        <input type="radio" class="options" ng-model="orderForm.deliveryType" value="FR" />
+	        <label for="free_del"  ng-click="vm.assignDeliveryType('FR')" >Free Delivery</label>
+	    </div>
+	    <div class="col-md-6 funkyradio-success">
+	        <input type="radio" class="options" ng-model="orderForm.deliveryType" value="EX" />
+	        <label for="express" ng-click="vm.assignDeliveryType('EX')" >Express Delivery (Within 45 Minutes + 10.00)</label>
+	    </div>
 	</div>
 </div>
 
 
+<div ng-if="orderForm.isDeliveryTypeFree()">
+
+
+	<div class="row">
+		<div class="col-md-6" style="margin-bottom : 20px;">
+			<div class="form-group"style="width: 100%; display: block;">
+				<label class="label-font" style="margin-top: 18px;">
+					<i class="icon-calendar-7"></i>  Select a Delivery date and Time slot
+				</label>
+				<input style="height:34px;" class="form-control col-md-6"
+		               ng-model="orderForm.deliveryDate"
+		               ng-model-options="{ updateOn: 'blur' }"
+		               placeholder="Select a date..."
+		               format="ll"
+		               today="true"
+		               min-date="minDate"
+		               change="vm.onChange(newValue, oldValue)"
+		               moment-picker="orderForm.deliveryDate"/>  
+            </div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="funkyradio"  style="display: block;">
+				<div class="col-md-6 funkyradio-success" ng-repeat="time in availableTimings">
+					<input type="radio" class="label-font date_options" ng-model="orderForm.deliveryTime" value="{{time.value}}" ng-disabled="time.disabled">
+	                <label ng-click="vm.assignDeliveryTime(time);" style="margin-top:4px;"  ng-class="{'text-overline' : time.disabled}">{{time.label}}</label>
+				</div>
+	        </div>
+    	</div>
+	</div>
+
+</div>
+
+
+
+
+
+
 <div class="row">
-    <div class="col-md-12 col-sm-12">
+	<div class="col-md-12 col-sm-12" style="margin-top:20px">
     	<a class="btn_1 outline pull-left" style="width: 35%;padding: 10px;text-align: center;font-size: 16px;" ng-click="vm.previous()"><i class="icon-right"></i> Previous</a>
 
         <a class="btn_1 green pull-right" style="width: 35%;padding: 12px;text-align: center;font-size: 16px;" ng-click="vm.next()"> Next <i class="icon-left"></i></a>

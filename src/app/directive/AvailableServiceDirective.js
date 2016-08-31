@@ -43,7 +43,6 @@ export default class AvailableServiceDirective {
               .getServiceByProduct(scope.cartItem.product)
               .then((resultSet) => {
                 scope.availableServices = resultSet;
-                console.log(resultSet);
                 if(resultSet && resultSet.length > 0)
                   scope.isAvailable = true; 
               });

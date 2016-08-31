@@ -1,14 +1,92 @@
 <div class="row">
-	<div class="col-md-12">
-		 check out payment
+    <div class="col-md-12" style='margin-bottom:20px'>
+        <div class="form_title">
+            <h3 class="header_lineheight"><strong style='top:-10px !important;'>{{currentPage}}</strong>{{currentStep.name}}</h3>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row form-group">
+	<div class="col-md-12 funkyradio">
+	    <div class="col-md-6 funkyradio-success">
+	        <input type="radio" class="options" ng-model="orderForm.payment.method" value="CC" />
+	        <label for="free_del"  ng-click="vm.assignPaymentMethod('CC')" >Credit Card</label>
+	    </div>
+	    <div class="col-md-6 funkyradio-success">
+	        <input type="radio" class="options" ng-model="orderForm.payment.method" value="CO" />
+	        <label for="express" ng-click="vm.assignPaymentMethod('CO')" >Cash on delivery</label>
+	    </div>
 	</div>
 </div>
 
 
+<div class="form-group" ng-if="orderForm.isPaymentCreditCart()">
+
+
+	<div class="row" style="margin-top:10px;">
+		<div class="col-md-6 col-sm-6">
+		        <input type="text" input-filter="^[0-9-]*$" ng-change="vm.decideCardType()" class="form-control" ng-model="orderForm.payment.cardInfo.number"  maxlength="16" placeholder="Credit Card Number" required="">
+		</div>
+
+		<div class="col-md-6">
+			<div class="input-group" style="height : 40px !important">
+			  <span class="input-group-addon" style="padding: 2px 10px !important; background:#FFF;">
+			  	<i class="fa {{orderForm.payment.cardInfo.typeMask.class}} fa-2x" ></i>
+			  </span>
+			  <input type="text" style="height : 40px !important" ng-model="orderForm.payment.cardInfo.type" class="form-control" placeholder="Card Type" ng-disabled="orderForm.payment.cardInfo.typeMask.disabled">
+			</div>
+		</div>
+	</div>
+
+	<div class="row" >
+		<div class="col-md-12" >
+				<div class="row">
+					<div class="col-md-12" >
+						<label class="label-font" style="margin-top: 18px;">
+							<i class="icon-calendar-7"></i>  Select Credit Card Expiry Month
+						</label>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-6" >
+							<input style="height:40px;" class="form-control col-md-6"
+					               ng-model="orderForm.payment.cardInfo.expiryMonthYear"
+					               ng-model-options="{ updateOn: 'blur' }"
+					               placeholder="Select Credit Card Expiry Month"
+					               format="MMMM YYYY"
+					               today="true"
+					               min-date="data.card.minDate"
+					               moment-picker="orderForm.payment.cardInfo.expiryMonthYear"/>  
+			        </div>
+
+					<div class="col-md-2" >
+						<input type="text" input-filter="^[0-9-]*$" class="form-control" ng-model="orderForm.payment.cardInfo.cvv2"  maxlength="3" placeholder="CVV" >
+					</div>
+				</div>
+
+		</div>
+		
+	</div>
+
+	<div class="row" style="margin-top : 15px;">
+		<div class="col-md-6 col-sm-6">
+				<input type="text" class="form-control" ng-model="orderForm.payment.cardInfo.name"  placeholder="Name as per credit card" required="">
+		</div>
+	</div>
+
+
+</div>
+
+
+
 <div class="row">
     <div class="col-md-12 col-sm-12">
-    	
+    	<a class="btn_1 outline pull-left" style="width: 35%;padding: 10px;text-align: center;font-size: 16px;" ng-click="vm.previous()"><i class="icon-right"></i> Previous</a>
 
-        <a class="btn_1 green pull-right" style="width: 35%;padding: 12px;text-align: center;font-size: 16px;" ng-click="vm.next()"> Submit </a>
+        <a class="btn_1 green pull-right" style="width: 35%;padding: 12px;text-align: center;font-size: 16px;" ng-click="vm.submitOrder()"> Submit </a>
     </div>
 </div>

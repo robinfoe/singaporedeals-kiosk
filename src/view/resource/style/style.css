@@ -435,7 +435,7 @@ header{
 	position:fixed;
 	left:0;
 	top:0;
-	z-index:99999;
+	z-index:5000;
 	padding:10px 0;
 }
 header#plain{background-color:#fff;}
@@ -4099,4 +4099,18 @@ div.product-chooser div.product-chooser-item input{
 	background-color: #e04f67 !important;	
 	border-color: #e04f67 !important;
 }
+
+.message-bullet {
+	padding-left:20px;
+}
+
+.text-color-green{
+	color : #00CC00 !important;
+}
+
+.text-overline {
+	text-decoration:line-through;
+}
+
+
 

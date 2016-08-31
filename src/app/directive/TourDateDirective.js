@@ -2,8 +2,9 @@ import WEBUTIL from '../lib/util/WebUtil'
 var _ = require('underscore');
 
 export default class TourDateDirective {
-    constructor() {
+    constructor($timeout) {
         this.template = '<div ng-include="getContentUrl()"></div>';
+        this.$timeout = $timeout;
         //this.templateUrl = './directive/tour-date-book-edit.html';
         this.restrict = 'AE';
         this.scope = { 
@@ -25,7 +26,9 @@ export default class TourDateDirective {
 
 
       scope.onChange = (newValue, oldValue) => {
-        scope.decideTime();
+        this.$timeout(() => {
+            scope.decideTime();
+        }); 
       };
 
 
@@ -37,29 +40,27 @@ export default class TourDateDirective {
         var currentDate = moment(scope.cartItem.tourDateTime.date, "ll");
 
         if(currentDate.isSame(dateToCompare,'day')){
-
           availableTimes.forEach( (time) => {
             var tmpTime = moment(dateToCompare.format("ll") + " " + time, "lll");
             (tmpTime).subtract(15,'minutes'); // buffer out 15 minutes... 
             if(dateToCompare.isBefore(tmpTime))
-              scope.availableTimes.push(tmpTime);
+              scope.availableTimes.push(time);
           });
 
           if(scope.availableTimes.length == 0){
             currentDate.add(1, 'days')
             scope.cartItem.tourDateTime.date = currentDate.format('ll');
+            scope.availableTimes = availableTimes;
           }
 
           scope.minDate = scope.cartItem.tourDateTime.date;
-        }
+        }else
+          scope.availableTimes = availableTimes;
 
-        scope.availableTimes = availableTimes;
         if( ! _.contains(scope.availableTimes , scope.cartItem.tourDateTime.time) )
           scope.cartItem.tourDateTime.time = scope.availableTimes[0];
 
       };
-
-     
 
       scope.decideTime();
     }

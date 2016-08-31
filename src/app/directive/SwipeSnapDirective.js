@@ -1,8 +1,9 @@
 import hammerjs from 'hammerjs'
 
 export default class SwipeSnapDirective {
-    constructor() {
+    constructor($swipe) {
         this.restrict = 'AE';
+        this.$swipe = $swipe;
         this.scope={
           getSnapRegion:'&'
         }
@@ -13,7 +14,37 @@ export default class SwipeSnapDirective {
       //var snapLocations = scope.snapLocations, //JSON.parse(attrs.snapLocations),
       var restPosition = 0, // Define the location to end.
       positionX = 0; // The current position.
-      hammerjs(element[0]).on('panstart', (ev) => {
+
+      //console.log(element);
+      //var el = angular.element(element[0]);
+      var deltaX = 0;
+      this.$swipe.bind(angular.element(element[0]), 
+          {'start' : (ev) => {
+                      element.removeClass('animate');
+                      deltaX = parseInt(ev.x);
+                      },
+            'move' : (ev) => {
+                    positionX = restPosition + ( (deltaX - parseInt(ev.x) ) * -1);
+                    element.css('-webkit-transform', 'translate3d(' + positionX + 'px,0px,0px)');
+                    element.css('transform', 'translate3d(' + positionX + 'px,0px,0px)');
+                  },
+            'end' : (ev) => {
+                element.addClass('animate');
+                restPosition = this.calculateSnapPosition(positionX, scope.getSnapRegion() );
+                element.css('-webkit-transform', 'translate3d(' + restPosition + 'px, 0px, 0px)');
+              },
+
+            'cancel' : (ev) => {
+                element.addClass('animate');
+                restPosition = this.calculateSnapPosition(positionX, scope.getSnapRegion() );
+                element.css('-webkit-transform', 'translate3d(' + restPosition + 'px, 0px, 0px)');
+              }
+          });
+      
+
+      /*
+
+  hammerjs(element[0]).on('panstart', (ev) => {
         element.removeClass('animate');
       });
 
@@ -29,6 +60,7 @@ export default class SwipeSnapDirective {
         restPosition = this.calculateSnapPosition(positionX, scope.getSnapRegion() );
         element.css('-webkit-transform', 'translate3d(' + restPosition + 'px, 0px, 0px)');
       });
+      */
 
 
     //hammerjs(element[0]).on('pan', (ev) => {console.log('panning....')});

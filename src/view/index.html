@@ -7,10 +7,10 @@
 	<link href="resource/style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="resource/style/chkbox_style.css" rel="stylesheet">
 	<link rel="stylesheet" href="resource/style/moment-picker/angular-moment-picker.css"/>
+	<link rel="stylesheet" href="resource/style/angular-growl/growl.css"/>
 	<script src="resource/js/moment-with-locales.js"></script>
 
 	<script>
-
 
 		if(process.env.ENV === 'development'){
 			var electron = require('electron');
@@ -23,46 +23,7 @@
 			electron.remote.BrowserWindow.addDevToolsExtension('/Users/rfoe/Library/Application Support/Google/Chrome/Default/Extensions/ighdmehidhipcmcojjgiloacoafjmpfk/0.10.7_0');
 
 		}
-		//require('remote').require('browser-window').addDevToolsExtension('~/.config/google-chrome/Default/Extensions/ighdmehidhipcmcojjgiloacoafjmpfk/0.10.7_0');
-		//require('remote').require('browser-window').addDevToolsExtension('chrome.*');
-
-/*
-var lf = require('lovefield');
-console.log(lf);
-var schemaBuilder = lf.schema.create('todo', 1);
-
-schemaBuilder.createTable('Item').
-addColumn('id', lf.Type.INTEGER).
-addColumn('description', lf.Type.STRING).
-addColumn('deadline', lf.Type.DATE_TIME).
-addColumn('done', lf.Type.BOOLEAN).
-addPrimaryKey(['id']).
-addIndex('idxDeadline', ['deadline'], false, lf.Order.DESC);
-
-var todoDb;
-var item;
-schemaBuilder.connect().then(function(db) {
-	todoDb = db;
-	item = db.getSchema().table('Item');
-	var row = item.createRow({
-		'id': 1,
-		'description': 'Get a cup of coffee',
-		'deadline': new Date(),
-		'done': false
-	});
-
-	return db.insertOrReplace().into(item).values([row]).exec();
-}).then(function() {
-	return todoDb.select().from(item).where(item.done.eq(false)).exec();
-}).then(function(results) {
-	results.forEach(function(row) {
-		console.log(row['description'], 'before', row['deadline']);
-	});
-});
-
-
-
-*/
+		
 
 
 
@@ -72,6 +33,7 @@ schemaBuilder.connect().then(function(db) {
 </head>
 <body>
 	<div ng-include="'include/header.html'" style="margin-bottom:20px;"></div>
+	<div growl></div>
 	<div ng-view ></div>
 	<script>
 	(function() {

@@ -1,4 +1,4 @@
-
+import WEBUTIL from '../lib/util/WebUtil'
 
 export default class OrderFormEntity{
 	constructor() {
@@ -9,25 +9,27 @@ export default class OrderFormEntity{
 
 	    this.kioskCode = this.settings.get("PROPERTIES")["KIOSK_CODE"];
 	    this.hotelDetail = {
-	    	firstName : '',
-	    	lastName : '',
-	    	roomNumber : '',
-	    	email : '',
+	    	firstName : 'Robin',
+	    	lastName : 'Foe',
+	    	roomNumber : '888',
+	    	email : 'robin.foe@gmail.com',
 	    	hotelLocation : this.settings.get("PROPERTIES")["KIOSK_LOCATION"]
 	    }
 	    this.deliveryType="FR" // "FR - Free EX - Express"
 	    this.deliveryTime="";
+	    this.deliveryDate=null;
 	    this.carts = [];
 	    this.payment = {
 	    	method : 'CC', // CC - Credit Cart CO - Cash on Delivery
 	    	cardInfo : {
 	    		number : '',
 	    		type : '',
+	    		typeMask : WEBUTIL.getUnknownCardType(),
 	    		expireMonth : '',
 	    		expireYear : '',
+	    		expiryMonthYear : moment(),
 	    		cvv2 : '',
-	    		firstName : '',
-	    		lastName : ''
+	    		name : ''
 	    	},
 	    	billingAddress : {
 	    		address01 : '',
@@ -39,9 +41,21 @@ export default class OrderFormEntity{
 	    	}
 
 	    }
+	}
 
+	
 
+	setCardType(cardType){
+		this.payment.cardInfo.typeMask = cardType;
+		this.payment.cardInfo.type = (cardType.card == 'unknown') ? '' : cardType.card;
+	}
 
+	isDeliveryTypeFree(){
+		return this.deliveryType == 'FR';
+	}
+
+	isPaymentCreditCart(){
+		return this.payment.method == "CC";
 	}
 	
 }

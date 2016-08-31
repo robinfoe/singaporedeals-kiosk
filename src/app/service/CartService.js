@@ -6,7 +6,13 @@ export default class CartService {
     }
 
     getItems(){return this.items;}
-
+    cloneCarts(){
+      var carts = [];
+      this.items.forEach( (item) => {
+        carts.push(item.clone());
+      })
+      return carts;
+    }
     
 
     addItem(cartItem){
@@ -71,6 +77,22 @@ export default class CartService {
       return (cart) ? true : false;
     }
 
+    getEarliestDeliveryDate(){
+      var itemToValidates = _.filter( this.items , (item) => {
+        if(item.deliveryOption == "Physical Ticket"){
+          if(item.tourDateTime.date && item.tourDateTime.time)
+            return true;
+        }
+        return false;
+      });
+
+      var earliestItem = _.sortBy(itemToValidates , (item) => {
+        var tmpTime = moment(item.tourDateTime.date + " " + item.tourDateTime.time, "lll");
+        return tmpTime.valueOf();
+      });
+
+      return (earliestItem.length > 0) ? moment(earliestItem[0].tourDateTime.date + " " + earliestItem[0].tourDateTime.time, "lll") : moment();
+    }
     
 }
 

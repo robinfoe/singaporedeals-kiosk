@@ -1,6 +1,8 @@
 'use strict';
 
 import angular from 'angular';
+import * as ngrowl from 'angular-growl-v2';
+
 //import moment from "moment";
 //import * as moment from 'moment';
 import * as momentpicker from "angular-moment-picker";
@@ -33,6 +35,7 @@ import TourDateDirective from './directive/TourDateDirective.js';
 import DeliveryOptionDirective from './directive/DeliveryOptionDirective.js';
 import ShakeThatDirective from './directive/ShakeThatDirective.js';
 import AvailableServiceDirective from './directive/AvailableServiceDirective.js';
+import InputFilterDirective from './directive/InputFilterDirective.js';
 
 
 
@@ -61,6 +64,8 @@ var mainApp = {
 			require('angular-sanitize'),
 			require('angular-ui-bootstrap'),
 			require('angular-animate'),
+			require('angular-touch'),
+			'angular-growl',
 			'moment-picker'
 			//'ui.bootstrap.datetimepicker'
 			
@@ -180,12 +185,13 @@ var mainApp = {
 				return price+0.00;
 			}})
 			.directive('productDeck' , ['$uibModal' ,'sharedParamService', '$location', ($uibModal, sharedParamService , $location) => new ProductDeckDirective($uibModal,sharedParamService, $location) ]  )
-			.directive('swipeAndSnap', () => new SwipeSnapDirective)
+			.directive('swipeAndSnap', ['$swipe' , ($swipe) => new SwipeSnapDirective($swipe) ])
 			.directive('touchSpin' , () => new TouchSpinDirective)
-			.directive('tourDate' , () => new TourDateDirective)
+			.directive('tourDate' , ['$timeout',($timeout) => new TourDateDirective($timeout)])
 			.directive('deliverySelection', () => new DeliveryOptionDirective)
 			.directive('shakeThat' , ['$animate' ,($animate) => new ShakeThatDirective($animate) ])
 			.directive('availableService' , ['productService' , (productService) => new AvailableServiceDirective(productService) ])
+			.directive('inputFilter', () => new InputFilterDirective)
 			.factory("dbSchema" , function(){return mainApp.STATIC.SCHEMA;})
 			.service('productService' , ProductService)
 			.service('productReviewService' , ProductReviewService)
@@ -200,7 +206,7 @@ var mainApp = {
 
 			});
 
-		myApp.config(function($routeProvider){
+		myApp.config(['$routeProvider','growlProvider',function($routeProvider, growlProvider){
 			$routeProvider
 				.when('/home',{
 					templateUrl : './partial/home.html',
@@ -234,7 +240,12 @@ var mainApp = {
 				})
 				.otherwise({redirectTo:'/home'});
 
-		});
+				growlProvider.globalTimeToLive(5000);
+				growlProvider.globalDisableCountDown(false);
+
+
+
+		}]);
 
 		angular.bootstrap(document, [moduleName]);
 
